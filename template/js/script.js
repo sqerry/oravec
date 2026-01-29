@@ -9,11 +9,12 @@ import { initCart } from './components/cart/cart.js'
 import { initPages } from './components/pages.js'
 import { initBlogListing } from './components/blog/blog-listing.js'
 import { initBlogPost } from './components/blog/blog-detail.js'
+import { initProductNote } from './components/productNote.js'
 
 $(document).ready(function () {
     const body = $('body')
-    body.addClass('able-template-1')
 
+    initProductNote()
     initHeader()
     initFooter()
     initPopupWidget()

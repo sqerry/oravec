@@ -33,12 +33,7 @@ const remotePathOutput = '/';
 // const sources = [source, sourceSk, sourceDe]
 // const sources = [source]
 
-const sources = [
-  // require('./gulp-source-test.json'), // TEST
-  require('./gulp-source.json'), // CZ
-  require('./gulp-source-pl.json'), // PL
-  require('./gulp-source-sk.json'), // SK
-];
+const sources = [source];
 
 // Rollup cache for faster rebuilds
 let rollupCache;
@@ -128,28 +123,21 @@ function delayedStream(delay = 100) {
   );
 }
 
-// Development CSS - SASS (no SFTP) - using sass native sourcemaps
-gulp.task('sass-dev', function (done) {
-  log('Starting SASS compilation for development...');
+// Development CSS - SASS (no SFTP)
+gulp.task('sass-dev', function () {
   return gulp
     .src('template/css/*.scss')
-    .pipe(
-      sass
-        .sync({
-          outputStyle: 'expanded',
-          sourceMap: true,
-          sourceMapEmbed: true,
-          sourceMapContents: true,
-        })
-        .on('error', sass.logError)
-    )
+    .pipe(sourcemaps.init())
+    .pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
     .pipe(rename('style.css'))
+    .pipe(
+      sourcemaps.write('.', {
+        includeContent: true,
+        sourceRoot: '../template/css',
+      })
+    )
     .pipe(gulp.dest('dist'))
-    .pipe(delayedStream())
-    .on('end', function () {
-      log('SASS compilation completed');
-      done();
-    });
+    .pipe(delayedStream());
 });
 
 // Production CSS - SASS (with SFTP)
@@ -382,7 +370,15 @@ gulp.task('staticServer', function (done) {
     next();
   });
 
+  // Serve dist files
   staticServer.use('/dist', express.static('dist'));
+  // Aliases for production paths (so dev CSS works with prod paths)
+  staticServer.use('/user/documents/able-fonts', express.static('dist/fonts'));
+  staticServer.use(
+    '/user/documents/able-images',
+    express.static('dist/able-images')
+  );
+  staticServer.use('/user/documents', express.static('dist'));
   staticServer.listen(3008, function () {
     log('Static server running on port 3008');
     done();
@@ -391,16 +387,29 @@ gulp.task('staticServer', function (done) {
 
 gulp.task('browserSync', function (done) {
   log('Initializing BrowserSync...');
+  // Use productionUrl if defined, otherwise use staging myshoptet.com URL
+  const proxyTarget = source.productionUrl
+    ? 'https://' + source.productionUrl
+    : 'https://' + source.url + '.myshoptet.com';
+  log('Proxying to: ' + proxyTarget);
   browserSync.init({
     proxy: {
-      target: 'https://' + source.url + '.myshoptet.com',
-      // target: 'https://www.unuo.cz',
+      target: proxyTarget,
       ws: true,
     },
     port: 3009,
     open: false,
     browser: ['google chrome', 'firefox'],
     reloadDelay: 0,
+    rewriteRules: [
+      {
+        // Redirect CSS to local server (with sourcemaps)
+        match: /\/user\/documents\/style\.css(\?[^"']*)?/g,
+        fn: function () {
+          return 'http://localhost:3008/dist/style.css';
+        },
+      },
+    ],
   });
   log('BrowserSync initialized');
   done();
