@@ -38,6 +38,19 @@ function isVariantSelected() {
     return allSelected
 }
 
+// Checks if note is required based on presence of .flag-note-required element
+function isNoteRequired() {
+    const flagElement = $('.p-image-wrapper .flag-note-required')
+    const required = flagElement.length > 0
+
+    if (required) {
+        flagElement.hide()
+    }
+
+    console.log('[ProductNote] isNoteRequired:', required)
+    return required
+}
+
 // Checks if vzorkovnik is active on this product (has VZK- parameter or vzorkovnik tab)
 function isVzorkovnikActive() {
     if ($('#vzorkovnik').length > 0) return true
@@ -53,15 +66,15 @@ function isVzorkovnikActive() {
     return hasVzk
 }
 
-// Validates note input - note is required only if vzorkovnik is active
+// Validates note input - note is required only if flag-note-required exists
 function validateNote(noteValue) {
     if (!isVariantSelected()) {
         console.log('[ProductNote] Variant not selected')
         return false
     }
 
-    if (isVzorkovnikActive() && !noteValue) {
-        console.log('[ProductNote] Note required but empty (vzorkovnik active)')
+    if (isNoteRequired() && !noteValue) {
+        console.log('[ProductNote] Note required but empty (flag-note-required present)')
         return false
     }
 
@@ -69,10 +82,10 @@ function validateNote(noteValue) {
 }
 
 // Creates the note input HTML element
-function createNoteInput(labelText, isRequired) {
+function createNoteInput(labelText, isRequired, showHelper) {
     const spanClass = isRequired ? 'required-asterisk' : ''
     const requiredAttr = isRequired ? 'required' : ''
-    const helperText = isRequired
+    const helperText = showHelper
         ? '<small class="product-note-helper">Tu napíšte názov vybranej poťahovej látky:</small>'
         : ''
     return /* HTML */ `
@@ -88,10 +101,11 @@ function createNoteInput(labelText, isRequired) {
 
 // Appends note input to form if not already present
 function handleNewNote(container) {
-    const isRequired = isVzorkovnikActive()
+    const isRequired = isNoteRequired()
+    const showHelper = isVzorkovnikActive()
 
     if (!$('.form-group.product-note').length) {
-        container.append(createNoteInput('Vaše poznámky k tovaru', isRequired))
+        container.append(createNoteInput('Vaše poznámky k tovaru', isRequired, showHelper))
     } else {
         const noteGroup = $('.form-group.product-note')
         const labelSpan = noteGroup.find('label span')
@@ -100,9 +114,13 @@ function handleNewNote(container) {
         labelSpan.toggleClass('required-asterisk', isRequired)
         textarea.prop('required', isRequired)
 
-        if (isRequired && !noteGroup.find('.product-note-helper').length) {
-            noteGroup.find('label').after('<small class="product-note-helper">Tu napíšte názov vybranej poťahovej látky:</small>')
-        } else if (!isRequired) {
+        if (showHelper && !noteGroup.find('.product-note-helper').length) {
+            noteGroup
+                .find('label')
+                .after(
+                    '<small class="product-note-helper">Tu napíšte názov vybranej poťahovej látky:</small>'
+                )
+        } else if (!showHelper) {
             noteGroup.find('.product-note-helper').remove()
         }
     }
@@ -119,9 +137,16 @@ function setupEventListeners() {
         const productNoteInput = $('#productNote')
         const currentProductId = getProductId()
         const noteValue = productNoteInput.val().trim()
-        const vzorkovnikActive = isVzorkovnikActive()
+        const noteRequired = isNoteRequired()
 
-        console.log('[ProductNote] Form submit - ID:', currentProductId, '| Note:', noteValue, '| Vzorkovnik:', vzorkovnikActive)
+        console.log(
+            '[ProductNote] Form submit - ID:',
+            currentProductId,
+            '| Note:',
+            noteValue,
+            '| Required:',
+            noteRequired
+        )
 
         if (!validateNote(noteValue)) {
             console.log('[ProductNote] Validation failed')
@@ -177,7 +202,7 @@ export function cleanupRemovedProductNotes() {
         const cartProductCodes = []
         $('.cart-table tr.removeable').each(function () {
             const sku = $(this).data('micro-sku')
-            if (sku) cartProductCodes.push(sku)
+            if (sku) cartProductCodes.push(String(sku))
         })
 
         if (!cartProductCodes.length) return
@@ -199,9 +224,6 @@ function createCartNoteDisplay(note) {
     return /* HTML */ `
         <div class="cart-note-display">
             <span class="note-text">${note}</span>
-            <span
-                class="show-tooltip question-tooltip"
-                title="Poznámka platí pre všetky kusy tohto produktu"></span>
         </div>
     `
 }
@@ -215,7 +237,7 @@ function displayCartNotes() {
 
     cartRows.each(function () {
         const row = $(this)
-        const productSku = row.data('micro-sku')
+        const productSku = String(row.data('micro-sku'))
         const productNote = notes.find((note) => note.id === productSku)
 
         console.log('[ProductNote] Row SKU:', productSku, '| Match:', productNote)

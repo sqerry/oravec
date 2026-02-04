@@ -455,7 +455,7 @@
         return buildGallerySection(gallery.items, gallery.heading, index);
       }).join('');
       var tabHtml = /* HTML */"\n        <li class=\"shp-tab\" data-testid=\"tabVzorkovnik\">\n            <a href=\"#vzorkovnik\" class=\"shp-tab-link\" role=\"tab\" data-toggle=\"tab\">Vzorkovnik</a>\n        </li>\n    ";
-      var contentHtml = /* HTML */"\n        <div id=\"vzorkovnik\" class=\"tab-pane fade\" role=\"tabpanel\">\n            <span class=\"detail-tab-item js-detail-tab-item\" data-content=\"vzorkovnik\">Vzorkovnik</span>\n            <div class=\"detail-tab-content\">\n                ".concat(galleriesHtml, "\n            </div>\n        </div>\n    ");
+      var contentHtml = /* HTML */"\n        <div id=\"vzorkovnik\" class=\"tab-pane fade\" role=\"tabpanel\">\n            <span class=\"detail-tab-item js-detail-tab-item\" data-content=\"vzorkovnik\">Vzorkovnik</span>\n            <div class=\"detail-tab-content\">".concat(galleriesHtml, "</div>\n        </div>\n    ");
       tabList.append(tabHtml);
       tabContentParent.append(contentHtml);
       insertVzorkovnikLink();
@@ -485,6 +485,13 @@
         vzorkovnikContent.one('transitionend', scrollToVzorkovnik);
         setTimeout(scrollToVzorkovnik, 350);
       });
+    }
+    function changeDetailBtn() {
+      var detailFlag = $('.p-image-wrapper .flag.flag-detail-btn');
+      var addToCartButton = $('.p-info-wrapper .add-to-cart-button');
+      if (!detailFlag.length) return;
+      var flagText = detailFlag.text();
+      addToCartButton.text(flagText).addClass('detail-btn');
     }
 
     // Initializes vzorkovnik feature - detects codes, fetches data, renders gallery tab
@@ -521,6 +528,7 @@
     }
     function initDetail() {
       initVzorkovnik();
+      changeDetailBtn();
     }
 
     function initCategory() {
@@ -585,6 +593,17 @@
       return allSelected;
     }
 
+    // Checks if note is required based on presence of .flag-note-required element
+    function isNoteRequired() {
+      var flagElement = $('.p-image-wrapper .flag-note-required');
+      var required = flagElement.length > 0;
+      if (required) {
+        flagElement.hide();
+      }
+      console.log('[ProductNote] isNoteRequired:', required);
+      return required;
+    }
+
     // Checks if vzorkovnik is active on this product (has VZK- parameter or vzorkovnik tab)
     function isVzorkovnikActive() {
       if ($('#vzorkovnik').length > 0) return true;
@@ -599,41 +618,42 @@
       return hasVzk;
     }
 
-    // Validates note input - note is required only if vzorkovnik is active
+    // Validates note input - note is required only if flag-note-required exists
     function validateNote(noteValue) {
       if (!isVariantSelected()) {
         console.log('[ProductNote] Variant not selected');
         return false;
       }
-      if (isVzorkovnikActive() && !noteValue) {
-        console.log('[ProductNote] Note required but empty (vzorkovnik active)');
+      if (isNoteRequired() && !noteValue) {
+        console.log('[ProductNote] Note required but empty (flag-note-required present)');
         return false;
       }
       return true;
     }
 
     // Creates the note input HTML element
-    function createNoteInput(labelText, isRequired) {
+    function createNoteInput(labelText, isRequired, showHelper) {
       var spanClass = isRequired ? 'required-asterisk' : '';
       var requiredAttr = isRequired ? 'required' : '';
-      var helperText = isRequired ? '<small class="product-note-helper">Tu napíšte názov vybranej poťahovej látky:</small>' : '';
+      var helperText = showHelper ? '<small class="product-note-helper">Tu napíšte názov vybranej poťahovej látky:</small>' : '';
       return /* HTML */"\n        <div class=\"form-group product-note\">\n            <label for=\"productNote\">\n                <span class=\"".concat(spanClass, "\">").concat(labelText, "</span>\n            </label>\n            ").concat(helperText, "\n            <textarea id=\"productNote\" name=\"productNote\" class=\"form-control\" ").concat(requiredAttr, "></textarea>\n        </div>\n    ");
     }
 
     // Appends note input to form if not already present
     function handleNewNote(container) {
-      var isRequired = isVzorkovnikActive();
+      var isRequired = isNoteRequired();
+      var showHelper = isVzorkovnikActive();
       if (!$('.form-group.product-note').length) {
-        container.append(createNoteInput('Vaše poznámky k tovaru', isRequired));
+        container.append(createNoteInput('Vaše poznámky k tovaru', isRequired, showHelper));
       } else {
         var noteGroup = $('.form-group.product-note');
         var labelSpan = noteGroup.find('label span');
         var textarea = $('#productNote');
         labelSpan.toggleClass('required-asterisk', isRequired);
         textarea.prop('required', isRequired);
-        if (isRequired && !noteGroup.find('.product-note-helper').length) {
+        if (showHelper && !noteGroup.find('.product-note-helper').length) {
           noteGroup.find('label').after('<small class="product-note-helper">Tu napíšte názov vybranej poťahovej látky:</small>');
-        } else if (!isRequired) {
+        } else if (!showHelper) {
           noteGroup.find('.product-note-helper').remove();
         }
       }
@@ -648,8 +668,8 @@
         var productNoteInput = $('#productNote');
         var currentProductId = getProductId();
         var noteValue = productNoteInput.val().trim();
-        var vzorkovnikActive = isVzorkovnikActive();
-        console.log('[ProductNote] Form submit - ID:', currentProductId, '| Note:', noteValue, '| Vzorkovnik:', vzorkovnikActive);
+        var noteRequired = isNoteRequired();
+        console.log('[ProductNote] Form submit - ID:', currentProductId, '| Note:', noteValue, '| Required:', noteRequired);
         if (!validateNote(noteValue)) {
           console.log('[ProductNote] Validation failed');
           return;
@@ -698,7 +718,7 @@
         var cartProductCodes = [];
         $('.cart-table tr.removeable').each(function () {
           var sku = $(this).data('micro-sku');
-          if (sku) cartProductCodes.push(sku);
+          if (sku) cartProductCodes.push(String(sku));
         });
         if (!cartProductCodes.length) return;
         var notes = getNotes();
@@ -716,7 +736,7 @@
 
     // Creates HTML for displaying a note in the cart
     function createCartNoteDisplay(note) {
-      return /* HTML */"\n        <div class=\"cart-note-display\">\n            <span class=\"note-text\">".concat(note, "</span>\n            <span\n                class=\"show-tooltip question-tooltip\"\n                title=\"Pozn\xE1mka plat\xED pre v\u0161etky kusy tohto produktu\"></span>\n        </div>\n    ");
+      return /* HTML */"\n        <div class=\"cart-note-display\">\n            <span class=\"note-text\">".concat(note, "</span>\n        </div>\n    ");
     }
 
     // Displays saved notes next to matching products in cart
@@ -726,7 +746,7 @@
       console.log('[ProductNote] displayCartNotes - Notes:', notes, '| Rows:', cartRows.length);
       cartRows.each(function () {
         var row = $(this);
-        var productSku = row.data('micro-sku');
+        var productSku = String(row.data('micro-sku'));
         var productNote = notes.find(function (note) {
           return note.id === productSku;
         });

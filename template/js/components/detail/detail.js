@@ -98,9 +98,7 @@ function renderVzorkovnikTab(galleries) {
     const contentHtml = /* HTML */ `
         <div id="vzorkovnik" class="tab-pane fade" role="tabpanel">
             <span class="detail-tab-item js-detail-tab-item" data-content="vzorkovnik">Vzorkovnik</span>
-            <div class="detail-tab-content">
-                ${galleriesHtml}
-            </div>
+            <div class="detail-tab-content">${galleriesHtml}</div>
         </div>
     `
 
@@ -142,6 +140,16 @@ function setupVzorkovnikLinkHandler() {
         })
 }
 
+function changeDetailBtn() {
+    const detailFlag = $('.p-image-wrapper .flag.flag-detail-btn')
+    const addToCartButton = $('.p-info-wrapper .add-to-cart-button')
+
+    if (!detailFlag.length) return
+
+    const flagText = detailFlag.text()
+    addToCartButton.text(flagText).addClass('detail-btn')
+}
+
 // Initializes vzorkovnik feature - detects codes, fetches data, renders gallery tab
 async function initVzorkovnik() {
     const codes = extractVzorkovnikCodes()
@@ -154,4 +162,5 @@ async function initVzorkovnik() {
 // Initializes product detail page enhancements
 export function initDetail() {
     initVzorkovnik()
+    changeDetailBtn()
 }
