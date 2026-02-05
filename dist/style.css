@@ -2,6 +2,20 @@
   display: none !important;
 }
 
+#navigation .menu ul.menu-level-1 li .menu-level-2 > .has-third-level .menu-image {
+  width: 135px;
+}
+#navigation .menu ul.menu-level-1 li .menu-level-2 > .has-third-level .menu-image img {
+  max-width: 100%;
+  max-height: 100%;
+}
+#navigation .menu ul.menu-level-1 li .menu-level-2 > .has-third-level > div .menu-level-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-height: 100%;
+}
+
 .type-detail #vzorkovnik .plus-gallery-wrap {
   margin-bottom: 32px !important;
 }
@@ -51,5 +65,30 @@
 }
 .type-detail .p-info-wrapper .add-to-cart-button.detail-btn::after {
   content: none;
+}
+@media (min-width: 480px) {
+  .type-detail .p-info-wrapper .quantity input {
+    height: 45px !important;
+    font-size: 20px;
+  }
+}
+@media (min-width: 480px) {
+  .type-detail .p-info-wrapper .quantity .increase,
+  .type-detail .p-info-wrapper .quantity .decrease {
+    height: 46px !important;
+  }
+  .type-detail .p-info-wrapper .quantity .increase:before,
+  .type-detail .p-info-wrapper .quantity .decrease:before {
+    font-size: 14px;
+  }
+}
+.type-detail p[data-testid=productCardDescr] {
+  display: none;
+}
+.type-detail .detail-grid-title {
+  display: none;
+}
+.type-detail .social-buttons {
+  display: none !important;
 }
 /*# sourceMappingURL=style.css.map */

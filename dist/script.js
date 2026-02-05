@@ -1,8 +1,14 @@
 (function () {
     'use strict';
 
+    // Removes stray commas from menu list items
+    function removeMenuCommas() {
+      $('.menu-level-3 li').each(function () {
+        this.innerHTML = this.innerHTML.replace(/,/g, '');
+      });
+    }
     function initHeader() {
-      console.log('Header initialized!');
+      removeMenuCommas();
     }
 
     function initFooter() {
@@ -58,6 +64,35 @@
           _next(void 0);
         });
       };
+    }
+    function _defineProperty(e, r, t) {
+      return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+        value: t,
+        enumerable: !0,
+        configurable: !0,
+        writable: !0
+      }) : e[r] = t, e;
+    }
+    function ownKeys(e, r) {
+      var t = Object.keys(e);
+      if (Object.getOwnPropertySymbols) {
+        var o = Object.getOwnPropertySymbols(e);
+        r && (o = o.filter(function (r) {
+          return Object.getOwnPropertyDescriptor(e, r).enumerable;
+        })), t.push.apply(t, o);
+      }
+      return t;
+    }
+    function _objectSpread2(e) {
+      for (var r = 1; r < arguments.length; r++) {
+        var t = null != arguments[r] ? arguments[r] : {};
+        r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
+          _defineProperty(e, r, t[r]);
+        }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
+          Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+        });
+      }
+      return e;
     }
     function _regeneratorRuntime() {
       _regeneratorRuntime = function () {
@@ -360,6 +395,20 @@
         }
       }, e;
     }
+    function _toPrimitive(t, r) {
+      if ("object" != typeof t || !t) return t;
+      var e = t[Symbol.toPrimitive];
+      if (void 0 !== e) {
+        var i = e.call(t, r || "default");
+        if ("object" != typeof i) return i;
+        throw new TypeError("@@toPrimitive must return a primitive value.");
+      }
+      return ("string" === r ? String : Number)(t);
+    }
+    function _toPropertyKey(t) {
+      var i = _toPrimitive(t, "string");
+      return "symbol" == typeof i ? i : i + "";
+    }
 
     // Extracts all VZK- parameter values from detail parameters table and hides the rows
     function extractVzorkovnikCodes() {
@@ -369,7 +418,12 @@
         var text = td.text().trim();
         if (text.startsWith('VZK-')) {
           $(this).hide();
-          codes.push(text);
+          var parts = text.split('-');
+          var csCategory = parts[2] || null;
+          codes.push({
+            code: text,
+            csCategory: csCategory
+          });
         }
       });
       return codes;
@@ -439,11 +493,11 @@
           title = _ref.title;
         return /* HTML */"\n                <div class=\"plus-gallery-item\">\n                    <a\n                        href=\"".concat(src, "\"\n                        title=\"").concat(title, "\"\n                        data-gallery=\"lightbox[gallery-vzorkovnik-").concat(index, "]\"\n                        class=\"cboxElement\">\n                        <div class=\"plus-gallery-item-img\">\n                            <img src=\"").concat(src, "\" alt=\"").concat(title, "\" loading=\"lazy\" />\n                        </div>\n                        <div class=\"plus-gallery-item-title\">").concat(title, "</div>\n                    </a>\n                </div>\n            ");
       }).join('');
-      var headingHtml = heading ? /* HTML */"<h2 class=\"vzorkovnik-heading\">".concat(heading, "</h2>") : '';
+      var headingHtml = heading ? /* HTML */"<h3 class=\"vzorkovnik-heading\">".concat(heading, "</h3>") : '';
       return /* HTML */"\n        ".concat(headingHtml, "\n        <div class=\"plus-gallery-wrap\">").concat(galleryItems, "</div>\n    ");
     }
 
-    // Renders vzorkovnik gallery tab with multiple galleries
+    // Renders vzorkovnik gallery tab with category headings before first occurrence
     function renderVzorkovnikTab(galleries) {
       var tabList = $('#p-detail-tabs');
       var tabContentParent = $('#description').parent();
@@ -451,23 +505,37 @@
         return g.items.length > 0;
       });
       if (!tabList.length || !tabContentParent.length || !validGalleries.length) return;
+      var seenCategories = new Set();
       var galleriesHtml = validGalleries.map(function (gallery, index) {
-        return buildGallerySection(gallery.items, gallery.heading, index);
+        var categoryKey = gallery.csCategory;
+        var categoryTitle = vzkCsTitles[categoryKey];
+        var html = '';
+        if (categoryTitle && !seenCategories.has(categoryKey)) {
+          seenCategories.add(categoryKey);
+          html += /* HTML */"<h2 class=\"vzorkovnik-category-heading\">".concat(categoryTitle, "</h2>");
+        }
+        html += buildGallerySection(gallery.items, gallery.heading, index);
+        return html;
       }).join('');
       var tabHtml = /* HTML */"\n        <li class=\"shp-tab\" data-testid=\"tabVzorkovnik\">\n            <a href=\"#vzorkovnik\" class=\"shp-tab-link\" role=\"tab\" data-toggle=\"tab\">Vzorkovnik</a>\n        </li>\n    ";
       var contentHtml = /* HTML */"\n        <div id=\"vzorkovnik\" class=\"tab-pane fade\" role=\"tabpanel\">\n            <span class=\"detail-tab-item js-detail-tab-item\" data-content=\"vzorkovnik\">Vzorkovnik</span>\n            <div class=\"detail-tab-content\">".concat(galleriesHtml, "</div>\n        </div>\n    ");
       tabList.append(tabHtml);
       tabContentParent.append(contentHtml);
-      insertVzorkovnikLink();
+      initVzorkovnikColorbox();
+      // insertVzorkovnikLink()
       setupVzorkovnikLinkHandler();
     }
 
-    // Inserts vzorkovnik link button after detail parameters grid
-    function insertVzorkovnikLink() {
-      var parametersGrid = $('.p-info-grid .detail-parameters');
-      if (!parametersGrid.length || $('.vzorkovnik-link').length) return;
-      var linkHtml = /* HTML */"\n        <a href=\"#\" class=\"vzorkovnik-link btn btn-secondary\">Pozrite si v\u0161etky vzorky</a>\n    ";
-      parametersGrid.after(linkHtml);
+    // Initializes colorbox for dynamically added vzorkovnik gallery items
+    function initVzorkovnikColorbox() {
+      $('#vzorkovnik .cboxElement').each(function () {
+        var galleryGroup = $(this).data('gallery');
+        $(this).colorbox({
+          rel: galleryGroup,
+          maxWidth: '95%',
+          maxHeight: '95%'
+        });
+      });
     }
 
     // Handles click on vzorkovnik link - opens tab and scrolls to it
@@ -499,30 +567,52 @@
       return _initVzorkovnik.apply(this, arguments);
     } // Initializes product detail page enhancements
     function _initVzorkovnik() {
-      _initVzorkovnik = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var codes, galleries;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+      _initVzorkovnik = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var codeData, galleries;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              codes = extractVzorkovnikCodes();
-              if (codes.length) {
-                _context2.next = 3;
+              codeData = extractVzorkovnikCodes();
+              if (codeData.length) {
+                _context3.next = 3;
                 break;
               }
-              return _context2.abrupt("return");
+              return _context3.abrupt("return");
             case 3:
-              _context2.next = 5;
-              return Promise.all(codes.map(function (code) {
-                return fetchVzorkovnikItems(code);
-              }));
+              _context3.next = 5;
+              return Promise.all(codeData.map( /*#__PURE__*/function () {
+                var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(_ref2) {
+                  var code, csCategory, result;
+                  return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                    while (1) switch (_context2.prev = _context2.next) {
+                      case 0:
+                        code = _ref2.code, csCategory = _ref2.csCategory;
+                        _context2.next = 3;
+                        return fetchVzorkovnikItems(code);
+                      case 3:
+                        result = _context2.sent;
+                        return _context2.abrupt("return", _objectSpread2(_objectSpread2({}, result), {}, {
+                          csCategory: csCategory
+                        }));
+                      case 5:
+                      case "end":
+                        return _context2.stop();
+                    }
+                  }, _callee2);
+                }));
+                return function (_x2) {
+                  return _ref3.apply(this, arguments);
+                };
+              }()));
             case 5:
-              galleries = _context2.sent;
+              galleries = _context3.sent;
               renderVzorkovnikTab(galleries);
-            case 7:
+              $('.extended-description').hide();
+            case 8:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
-        }, _callee2);
+        }, _callee3);
       }));
       return _initVzorkovnik.apply(this, arguments);
     }

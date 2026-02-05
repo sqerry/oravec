@@ -8,7 +8,9 @@ function extractVzorkovnikCodes() {
 
         if (text.startsWith('VZK-')) {
             $(this).hide()
-            codes.push(text)
+            const parts = text.split('-')
+            const csCategory = parts[2] || null
+            codes.push({ code: text, csCategory })
         }
     })
 
@@ -69,7 +71,7 @@ function buildGallerySection(items, heading, index) {
         )
         .join('')
 
-    const headingHtml = heading ? /* HTML */ `<h2 class="vzorkovnik-heading">${heading}</h2>` : ''
+    const headingHtml = heading ? /* HTML */ `<h3 class="vzorkovnik-heading">${heading}</h3>` : ''
 
     return /* HTML */ `
         ${headingHtml}
@@ -77,7 +79,7 @@ function buildGallerySection(items, heading, index) {
     `
 }
 
-// Renders vzorkovnik gallery tab with multiple galleries
+// Renders vzorkovnik gallery tab with category headings before first occurrence
 function renderVzorkovnikTab(galleries) {
     const tabList = $('#p-detail-tabs')
     const tabContentParent = $('#description').parent()
@@ -85,8 +87,21 @@ function renderVzorkovnikTab(galleries) {
     const validGalleries = galleries.filter((g) => g.items.length > 0)
     if (!tabList.length || !tabContentParent.length || !validGalleries.length) return
 
+    const seenCategories = new Set()
     const galleriesHtml = validGalleries
-        .map((gallery, index) => buildGallerySection(gallery.items, gallery.heading, index))
+        .map((gallery, index) => {
+            const categoryKey = gallery.csCategory
+            const categoryTitle = vzkCsTitles[categoryKey]
+            let html = ''
+
+            if (categoryTitle && !seenCategories.has(categoryKey)) {
+                seenCategories.add(categoryKey)
+                html += /* HTML */ `<h2 class="vzorkovnik-category-heading">${categoryTitle}</h2>`
+            }
+
+            html += buildGallerySection(gallery.items, gallery.heading, index)
+            return html
+        })
         .join('')
 
     const tabHtml = /* HTML */ `
@@ -105,8 +120,21 @@ function renderVzorkovnikTab(galleries) {
     tabList.append(tabHtml)
     tabContentParent.append(contentHtml)
 
-    insertVzorkovnikLink()
+    initVzorkovnikColorbox()
+    // insertVzorkovnikLink()
     setupVzorkovnikLinkHandler()
+}
+
+// Initializes colorbox for dynamically added vzorkovnik gallery items
+function initVzorkovnikColorbox() {
+    $('#vzorkovnik .cboxElement').each(function () {
+        const galleryGroup = $(this).data('gallery')
+        $(this).colorbox({
+            rel: galleryGroup,
+            maxWidth: '95%',
+            maxHeight: '95%',
+        })
+    })
 }
 
 // Inserts vzorkovnik link button after detail parameters grid
@@ -152,11 +180,18 @@ function changeDetailBtn() {
 
 // Initializes vzorkovnik feature - detects codes, fetches data, renders gallery tab
 async function initVzorkovnik() {
-    const codes = extractVzorkovnikCodes()
-    if (!codes.length) return
+    const codeData = extractVzorkovnikCodes()
+    if (!codeData.length) return
 
-    const galleries = await Promise.all(codes.map((code) => fetchVzorkovnikItems(code)))
+    const galleries = await Promise.all(
+        codeData.map(async ({ code, csCategory }) => {
+            const result = await fetchVzorkovnikItems(code)
+            return { ...result, csCategory }
+        })
+    )
     renderVzorkovnikTab(galleries)
+
+    $('.extended-description').hide()
 }
 
 // Initializes product detail page enhancements
