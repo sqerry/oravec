@@ -1,6 +1,33 @@
 @use '../abstracts/index' as *;
 
 .type-detail {
+    .vzorkovnik-tab a {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        .vzorkovnik-tab-icon {
+            width: 30px;
+            display: block;
+            position: relative;
+
+            &:after {
+                content: '';
+                background-image: url('/dist/able-images/dekor.svg');
+                width: 30px;
+                height: 30px;
+                display: block;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+            }
+        }
+    }
     #vzorkovnik {
         .plus-gallery-wrap {
             margin-bottom: 32px !important;

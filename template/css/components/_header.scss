@@ -1,5 +1,7 @@
 @use '../abstracts/index' as *;
-
+.top-nav-button {
+    display: none !important;
+}
 #navigation .menu ul.menu-level-1 li {
     .menu-level-2 {
         > .has-third-level {

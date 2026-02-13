@@ -1,1 +1,1060 @@
-!function(){"use strict";function t(){$(".menu-level-3 li").each(function(){this.innerHTML=this.innerHTML.replace(/,/g,"")})}var e=function(){var t=$(".products-block .product");t.length&&t.each(function(){$(this)})};function n(t,e,n,r,o,i,a){try{var c=t[i](a),l=c.value}catch(t){return void n(t)}c.done?e(l):Promise.resolve(l).then(r,o)}function r(t){return function(){var e=this,r=arguments;return new Promise(function(o,i){var a=t.apply(e,r);function c(t){n(a,o,i,c,l,"next",t)}function l(t){n(a,o,i,c,l,"throw",t)}c(void 0)})}}function o(t,e,n){return(e=function(t){var e=function(t,e){if("object"!=typeof t||!t)return t;var n=t[Symbol.toPrimitive];if(void 0!==n){var r=n.call(t,e||"default");if("object"!=typeof r)return r;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===e?String:Number)(t)}(t,"string");return"symbol"==typeof e?e:e+""}(e))in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}function i(t,e){var n=Object.keys(t);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(t);e&&(r=r.filter(function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable})),n.push.apply(n,r)}return n}function a(t){for(var e=1;e<arguments.length;e++){var n=null!=arguments[e]?arguments[e]:{};e%2?i(Object(n),!0).forEach(function(e){o(t,e,n[e])}):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(n)):i(Object(n)).forEach(function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(n,e))})}return t}function c(){c=function(){return e};var t,e={},n=Object.prototype,r=n.hasOwnProperty,o=Object.defineProperty||function(t,e,n){t[e]=n.value},i="function"==typeof Symbol?Symbol:{},a=i.iterator||"@@iterator",l=i.asyncIterator||"@@asyncIterator",s=i.toStringTag||"@@toStringTag";function u(t,e,n){return Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}),t[e]}try{u({},"")}catch(t){u=function(t,e,n){return t[e]=n}}function d(t,e,n,r){var i=e&&e.prototype instanceof y?e:y,a=Object.create(i.prototype),c=new C(r||[]);return o(a,"_invoke",{value:$(t,n,c)}),a}function f(t,e,n){try{return{type:"normal",arg:t.call(e,n)}}catch(t){return{type:"throw",arg:t}}}e.wrap=d;var p="suspendedStart",h="suspendedYield",v="executing",g="completed",m={};function y(){}function w(){}function b(){}var k={};u(k,a,function(){return this});var x=Object.getPrototypeOf,N=x&&x(x(S([])));N&&N!==n&&r.call(N,a)&&(k=N);var _=b.prototype=y.prototype=Object.create(k);function P(t){["next","throw","return"].forEach(function(e){u(t,e,function(t){return this._invoke(e,t)})})}function z(t,e){function n(o,i,a,c){var l=f(t[o],t,i);if("throw"!==l.type){var s=l.arg,u=s.value;return u&&"object"==typeof u&&r.call(u,"__await")?e.resolve(u.__await).then(function(t){n("next",t,a,c)},function(t){n("throw",t,a,c)}):e.resolve(u).then(function(t){s.value=t,a(s)},function(t){return n("throw",t,a,c)})}c(l.arg)}var i;o(this,"_invoke",{value:function(t,r){function o(){return new e(function(e,o){n(t,r,e,o)})}return i=i?i.then(o,o):o()}})}function $(e,n,r){var o=p;return function(i,a){if(o===v)throw Error("Generator is already running");if(o===g){if("throw"===i)throw a;return{value:t,done:!0}}for(r.method=i,r.arg=a;;){var c=r.delegate;if(c){var l=O(c,r);if(l){if(l===m)continue;return l}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if(o===p)throw o=g,r.arg;r.dispatchException(r.arg)}else"return"===r.method&&r.abrupt("return",r.arg);o=v;var s=f(e,n,r);if("normal"===s.type){if(o=r.done?g:h,s.arg===m)continue;return{value:s.arg,done:r.done}}"throw"===s.type&&(o=g,r.method="throw",r.arg=s.arg)}}}function O(e,n){var r=n.method,o=e.iterator[r];if(o===t)return n.delegate=null,"throw"===r&&e.iterator.return&&(n.method="return",n.arg=t,O(e,n),"throw"===n.method)||"return"!==r&&(n.method="throw",n.arg=new TypeError("The iterator does not provide a '"+r+"' method")),m;var i=f(o,e.iterator,n.arg);if("throw"===i.type)return n.method="throw",n.arg=i.arg,n.delegate=null,m;var a=i.arg;return a?a.done?(n[e.resultName]=a.value,n.next=e.nextLoc,"return"!==n.method&&(n.method="next",n.arg=t),n.delegate=null,m):a:(n.method="throw",n.arg=new TypeError("iterator result is not an object"),n.delegate=null,m)}function L(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function j(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function C(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(L,this),this.reset(!0)}function S(e){if(e||""===e){var n=e[a];if(n)return n.call(e);if("function"==typeof e.next)return e;if(!isNaN(e.length)){var o=-1,i=function n(){for(;++o<e.length;)if(r.call(e,o))return n.value=e[o],n.done=!1,n;return n.value=t,n.done=!0,n};return i.next=i}}throw new TypeError(typeof e+" is not iterable")}return w.prototype=b,o(_,"constructor",{value:b,configurable:!0}),o(b,"constructor",{value:w,configurable:!0}),w.displayName=u(b,s,"GeneratorFunction"),e.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===w||"GeneratorFunction"===(e.displayName||e.name))},e.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,b):(t.__proto__=b,u(t,s,"GeneratorFunction")),t.prototype=Object.create(_),t},e.awrap=function(t){return{__await:t}},P(z.prototype),u(z.prototype,l,function(){return this}),e.AsyncIterator=z,e.async=function(t,n,r,o,i){void 0===i&&(i=Promise);var a=new z(d(t,n,r,o),i);return e.isGeneratorFunction(n)?a:a.next().then(function(t){return t.done?t.value:a.next()})},P(_),u(_,s,"Generator"),u(_,a,function(){return this}),u(_,"toString",function(){return"[object Generator]"}),e.keys=function(t){var e=Object(t),n=[];for(var r in e)n.push(r);return n.reverse(),function t(){for(;n.length;){var r=n.pop();if(r in e)return t.value=r,t.done=!1,t}return t.done=!0,t}},e.values=S,C.prototype={constructor:C,reset:function(e){if(this.prev=0,this.next=0,this.sent=this._sent=t,this.done=!1,this.delegate=null,this.method="next",this.arg=t,this.tryEntries.forEach(j),!e)for(var n in this)"t"===n.charAt(0)&&r.call(this,n)&&!isNaN(+n.slice(1))&&(this[n]=t)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(e){if(this.done)throw e;var n=this;function o(r,o){return c.type="throw",c.arg=e,n.next=r,o&&(n.method="next",n.arg=t),!!o}for(var i=this.tryEntries.length-1;i>=0;--i){var a=this.tryEntries[i],c=a.completion;if("root"===a.tryLoc)return o("end");if(a.tryLoc<=this.prev){var l=r.call(a,"catchLoc"),s=r.call(a,"finallyLoc");if(l&&s){if(this.prev<a.catchLoc)return o(a.catchLoc,!0);if(this.prev<a.finallyLoc)return o(a.finallyLoc)}else if(l){if(this.prev<a.catchLoc)return o(a.catchLoc,!0)}else{if(!s)throw Error("try statement without catch or finally");if(this.prev<a.finallyLoc)return o(a.finallyLoc)}}}},abrupt:function(t,e){for(var n=this.tryEntries.length-1;n>=0;--n){var o=this.tryEntries[n];if(o.tryLoc<=this.prev&&r.call(o,"finallyLoc")&&this.prev<o.finallyLoc){var i=o;break}}i&&("break"===t||"continue"===t)&&i.tryLoc<=e&&e<=i.finallyLoc&&(i=null);var a=i?i.completion:{};return a.type=t,a.arg=e,i?(this.method="next",this.next=i.finallyLoc,m):this.complete(a)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),m},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var n=this.tryEntries[e];if(n.finallyLoc===t)return this.complete(n.completion,n.afterLoc),j(n),m}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var n=this.tryEntries[e];if(n.tryLoc===t){var r=n.completion;if("throw"===r.type){var o=r.arg;j(n)}return o}}throw Error("illegal catch attempt")},delegateYield:function(e,n,r){return this.delegate={iterator:S(e),resultName:n,nextLoc:r},"next"===this.method&&(this.arg=t),m}},e}function l(){var t=[];return $(".detail-parameters tr").each(function(){var e=$(this).find("td").text().trim();if(e.startsWith("VZK-")){$(this).hide();var n=e.split("-")[2]||null;t.push({code:e,csCategory:n})}}),t}function s(t){return u.apply(this,arguments)}function u(){return(u=r(c().mark(function t(e){var n,r,o,i,a,l,s,u,d,f,p,h;return c().wrap(function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,fetch("/".concat(e));case 2:return r=t.sent,t.next=5,r.text();case 5:if(o=t.sent,i=(new DOMParser).parseFromString(o,"text/html"),a=i.querySelector(".text")){t.next=10;break}return t.abrupt("return",{items:[],heading:null});case 10:for(l=(null===(n=a.querySelector("h2"))||void 0===n?void 0:n.textContent.trim())||null,s=[],u=Array.from(a.children),d=0;d<u.length;d++)"P"===(f=u[d]).tagName&&(p=f.querySelector("img"),h=u[d+1],p&&h&&s.push({src:p.src,title:h.textContent.trim()}));return t.abrupt("return",{items:s,heading:l});case 15:case"end":return t.stop()}},t)}))).apply(this,arguments)}function d(t){var e=$("#p-detail-tabs"),n=$("#description").parent(),r=t.filter(function(t){return t.items.length>0});if(e.length&&n.length&&r.length){var o=new Set,i=r.map(function(t,e){var n=t.csCategory,r=vzkCsTitles[n],i="";return r&&!o.has(n)&&(o.add(n),i+='<h2 class="vzorkovnik-category-heading">'.concat(r,"</h2>")),i+=function(t,e,n){var r=t.map(function(t){var e=t.src,r=t.title;return'\n                <div class="plus-gallery-item">\n                    <a\n                        href="'.concat(e,'"\n                        title="').concat(r,'"\n                        data-gallery="lightbox[gallery-vzorkovnik-').concat(n,']"\n                        class="cboxElement">\n                        <div class="plus-gallery-item-img">\n                            <img src="').concat(e,'" alt="').concat(r,'" loading="lazy" />\n                        </div>\n                        <div class="plus-gallery-item-title">').concat(r,"</div>\n                    </a>\n                </div>\n            ")}).join(""),o=e?'<h3 class="vzorkovnik-heading">'.concat(e,"</h3>"):"";return"\n        ".concat(o,'\n        <div class="plus-gallery-wrap">').concat(r,"</div>\n    ")}(t.items,t.heading,e),i}).join(""),a='\n        <div id="vzorkovnik" class="tab-pane fade" role="tabpanel">\n            <span class="detail-tab-item js-detail-tab-item" data-content="vzorkovnik">Vzorkovnik</span>\n            <div class="detail-tab-content">'.concat(i,"</div>\n        </div>\n    ");e.append('\n        <li class="shp-tab" data-testid="tabVzorkovnik">\n            <a href="#vzorkovnik" class="shp-tab-link" role="tab" data-toggle="tab">Vzorkovnik</a>\n        </li>\n    '),n.append(a),$("#vzorkovnik .cboxElement").each(function(){var t=$(this).data("gallery");$(this).colorbox({rel:t,maxWidth:"95%",maxHeight:"95%"})}),$(document).off("click.vzorkovnikLink").on("click.vzorkovnikLink",".vzorkovnik-link",function(t){t.preventDefault(),f()})}}function f(){var t=$('[data-testid="tabVzorkovnik"] a'),e=$("#vzorkovnik");t.trigger("click");var n=function(){$("html, body").animate({scrollTop:e.offset().top-100},300)};e.one("transitionend",n),setTimeout(n,350)}function p(){return p=r(c().mark(function t(){var e;return c().wrap(function(t){for(;;)switch(t.prev=t.next){case 0:if((e=l()).length){t.next=3;break}return t.abrupt("return");case 3:return t.next=5,Promise.all(e.map(function(){var t=r(c().mark(function t(e){var n,r,o;return c().wrap(function(t){for(;;)switch(t.prev=t.next){case 0:return n=e.code,r=e.csCategory,t.next=3,s(n);case 3:return o=t.sent,t.abrupt("return",a(a({},o),{},{csCategory:r}));case 5:case"end":return t.stop()}},t)}));return function(e){return t.apply(this,arguments)}}()));case 5:d(t.sent),$(".extended-description").hide();case 8:case"end":return t.stop()}},t)})),p.apply(this,arguments)}function h(){!function(){p.apply(this,arguments)}(),function(){var t=$(".p-image-wrapper .flag.flag-detail-btn"),e=$(".p-info-wrapper .add-to-cart-button");if(t.length){var n=t.text();e.text(n).addClass("detail-btn")}}(),$('a[href="#vzorkovnik"]').has("img").off("click.vzorkovnikImage").on("click.vzorkovnikImage",function(t){t.preventDefault(),f()})}function v(){return(v=r(c().mark(function t(){return c().wrap(function(t){for(;;)switch(t.prev=t.next){case 0:console.log("Homepage initialized!");case 1:case"end":return t.stop()}},t)}))).apply(this,arguments)}function g(){return JSON.parse(localStorage.getItem("productNotes"))||[]}function m(){var t=$(".p-image-wrapper .flag-note-required"),e=t.length>0;return e&&t.hide(),console.log("[ProductNote] isNoteRequired:",e),e}function y(t){return function(){var t=$(".hidden-split-parameter");if(!t.length)return!0;var e=!0;return t.each(function(){if(!$(this).val())return e=!1,!1}),e}()?!(m()&&!t)||(console.log("[ProductNote] Note required but empty (flag-note-required present)"),!1):(console.log("[ProductNote] Variant not selected"),!1)}function w(t){var e=m(),n=function(){if($("#vzorkovnik").length>0)return!0;var t=!1;return $(".extended-description .detail-parameters tr td").each(function(){if($(this).text().trim().startsWith("VZK-"))return t=!0,!1}),console.log("[ProductNote] isVzorkovnikActive:",t),t}();if($(".form-group.product-note").length){var r=$(".form-group.product-note"),o=r.find("label span"),i=$("#productNote");o.toggleClass("required-asterisk",e),i.prop("required",e),n&&!r.find(".product-note-helper").length?r.find("label").after('<small class="product-note-helper">Tu napíšte názov vybranej poťahovej látky:</small>'):n||r.find(".product-note-helper").remove()}else t.append(function(t,e,n){var r=e?"required":"",o=n?'<small class="product-note-helper">Tu napíšte názov vybranej poťahovej látky:</small>':"";return'\n        <div class="form-group product-note">\n            <label for="productNote">\n                <span class="'.concat(e?"required-asterisk":"",'">').concat(t,"</span>\n            </label>\n            ").concat(o,'\n            <textarea id="productNote" name="productNote" class="form-control" ').concat(r,"></textarea>\n        </div>\n    ")}("Vaše poznámky k tovaru",e,n));$(".form-group.product-note").show()}function b(){var t=$("#product-detail-form");t.off("submit.productNote").on("submit.productNote",function(e){e.preventDefault();var n=$("#productNote"),r=function(){try{var t,e=$('input[name="priceId"]').val(),n=null===(t=shoptet.variantsSplit)||void 0===t?void 0:t.necessaryVariantData;if(!e||!n)return null;for(var r in n)if(n[r].id===parseInt(e,10))return console.log("[ProductNote] getProductId:",n[r].code),n[r].code;return null}catch(t){return null}}(),o=n.val().trim(),i=m();if(console.log("[ProductNote] Form submit - ID:",r,"| Note:",o,"| Required:",i),y(o)){if(r&&o){var a=$("h1").first().text().trim()||"";!function(t,e,n,r){if(!t)return void console.error("[ProductNote] Invalid product ID");var o=e.filter(function(e){return e.id!==t});n&&o.push({id:t,note:n,name:r});localStorage.setItem("productNotes",JSON.stringify(o)),console.log("[ProductNote] localStorage updated:",o)}(r,g(),o,a),t.attr("data-note-id",r),n.val(""),console.log("[ProductNote] Note saved:",r,o)}$(".add-to-cart-button").trigger("click.shoptet")}else console.log("[ProductNote] Validation failed")}),$("#productNote").off("keypress.productNote").on("keypress.productNote",function(e){13===e.which&&(e.preventDefault(),t.trigger("submit.productNote"))})}function k(){try{var t=[];if($(".cart-table tr.removeable").each(function(){var e=$(this).data("micro-sku");e&&t.push(String(e))}),!t.length)return;var e=g(),n=e.filter(function(e){return t.includes(e.id)});n.length!==e.length&&(localStorage.setItem("productNotes",JSON.stringify(n)),console.log("[ProductNote] Cleaned up notes, remaining:",n))}catch(t){console.error("[ProductNote] cleanupRemovedProductNotes error:",t)}}function x(){var t=g(),e=$(".cart-table tr.removeable");console.log("[ProductNote] displayCartNotes - Notes:",t,"| Rows:",e.length),e.each(function(){var e,n=$(this),r=String(n.data("micro-sku")),o=t.find(function(t){return t.id===r});console.log("[ProductNote] Row SKU:",r,"| Match:",o),o&&!n.find(".cart-note-display").length&&(n.find(".p-name").append((e=o.note,'\n        <div class="cart-note-display">\n            <span class="note-text">'.concat(e,"</span>\n        </div>\n    "))),n.attr("data-note-id",o.id))})}function N(){k(),x()}function _(){var t=$(".detail-parameters-block");console.log("[ProductNote] initDetailNote - container found:",t.length),t.length&&(w(t),b())}function P(){$(".id--17").length&&(console.log("[ProductNote] inCheckout - initializing"),document.addEventListener("ShoptetSuccessfulValidation",function(t){var e=g();if(e.length>0){t.preventDefault();var n=$("#remark"),r=n.val()||"",o=e.map(function(t){return"".concat(t.id," / ").concat(t.name,": ").concat(t.note)}).join(" ||| "),i=[r&&"Poznámka pre predajcu: ".concat(r),o&&"Poznámky k produktu: ".concat(o)].filter(Boolean).join(" ||| ");n.val(i),console.log("[ProductNote] Remark updated:",i),$("#submit-order").click()}}))}function z(){console.log("[ProductNote] initProductNote called"),$(document).on("ShoptetCartUpdated ShoptetCartContentLoaded",function(){setTimeout(k,150)}),$(".type-detail").length&&(console.log("[ProductNote] inDetail - initializing"),_(),$(document).on("ShoptetSplitVariantParameterChange",function(){console.log("[ProductNote] Variant changed"),setTimeout(_,150)})),$(".id--9").length&&(console.log("[ProductNote] inCart - initializing"),x(),k(),$(document).on("ShoptetDOMCartContentLoaded",function(){setTimeout(N,150)}),$(".cart-table").on("change",".amount input",function(){setTimeout(N,150)})),P()}function O(){fetch("https://oravec-google-reviews.nrobern.workers.dev/reviews").then(function(t){return t.json()}).then(function(t){var e;null!==(e=t.reviews)&&void 0!==e&&e.length&&function(t){var e=$(".footer-rows");if(!e.length)return;var n=t.map(L).join(""),r='\n        <div class="google-reviews footer-item">\n            <div class="google-reviews__header">\n                <div class="google-reviews__title">\n                    <svg class="google-reviews__google-icon" viewBox="0 0 24 24" width="24" height="24">\n                        <path\n                            fill="#4285F4"\n                            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />\n                        <path\n                            fill="#34A853"\n                            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />\n                        <path\n                            fill="#FBBC05"\n                            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />\n                        <path\n                            fill="#EA4335"\n                            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />\n                    </svg>\n                    <h4>Google recenzie</h4>\n                </div>\n                <div class="google-reviews__nav">\n                    <button class="google-reviews__prev" aria-label="Predchádzajúca recenzia">&#8249;</button>\n                    <button class="google-reviews__next" aria-label="Nasledujúca recenzia">&#8250;</button>\n                </div>\n            </div>\n            <div class="google-reviews__slider swiper">\n                <div class="swiper-wrapper">'.concat(n,"</div>\n            </div>\n        </div>\n    ");e.prepend(r),$(".google-review").on("scroll",function(){var t=this,e=t.scrollHeight-t.scrollTop-t.clientHeight<5;$(t).toggleClass("is-scrolled-bottom",e)}),new Swiper(".google-reviews__slider",{slidesPerView:1.3,spaceBetween:12,navigation:{prevEl:".google-reviews__prev",nextEl:".google-reviews__next"},breakpoints:{992:{slidesPerView:3.3}}})}(t.reviews)}).catch(function(t){return console.error("Google Reviews fetch failed:",t)})}function L(t){var e,n=t.author.charAt(0).toUpperCase();return'\n        <div class="swiper-slide">\n            <a href="'.concat("https://www.google.com/search?sa=X&sca_esv=15046669d36cafaf&hl=cs-CZ&gl=cz&sxsrf=ANbL-n5YAnD-3_MGjUdwBUbi8Q5zAlA56Q:1770981499737&q=ORAVEC+N%C3%81BYTOK+Recenze&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxI2NrS0NDI1MzYxNzAztTAwtzC32MDI-IpR3D_IMczVWcHvcKNTZIi_t0JQanJqXlXqIlZcMgDxUo0JTgAAAA&rldimm=3199256347065807878&tbm=lcl&ved=2ahUKEwiC_ceZrNaSAxWBQ_EDHaD0JEwQ9fQKegQIWBAG&cshid=1770981535431468&biw=2267&bih=1390&dpr=1#lkt=LocalPoiReviews",'" target="_blank" rel="noopener noreferrer" class="google-review">\n                <div class="google-review__body">\n                    <div class="google-review__header">\n                        <img\n                            src="').concat(t.photo,'"\n                            alt="').concat(t.author,'"\n                            class="google-review__avatar"\n                            loading="lazy"\n                            onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"\n                            referrerpolicy="no-referrer" />\n                        <span class="google-review__avatar-fallback" style="display:none">').concat(n,'</span>\n                        <div class="google-review__meta">\n                            <span class="google-review__author">').concat(t.author,'</span>\n                            <span class="google-review__stars">').concat((e=t.rating,"★".repeat(e)+"☆".repeat(5-e)),'</span>\n                        </div>\n                    </div>\n                    <p class="google-review__text">').concat(t.text,'</p>\n                    <span class="google-review__time">').concat(function(t){var e=new Date,n=new Date(t),r=Math.floor((e-n)/864e5);if(r<1)return"dnes";if(r<7)return 1===r?"pred 1 dňom":"pred ".concat(r," dňami");var o=Math.floor(r/7);if(o<5)return 1===o?"pred 1 týždňom":"pred ".concat(o," týždňami");var i=Math.floor(r/30);if(i<12)return 1===i?"pred 1 mesiacom":"pred ".concat(i," mesiacmi");var a=Math.floor(r/365);return 1===a?"pred rokom":"pred ".concat(a," rokmi")}(t.time),"</span>\n                </div>\n            </a>\n        </div>\n    ")}$(document).ready(function(){var n=$("body");z(),O(),t(),console.log("Footer initialized!"),console.log("Popup widget initialized!"),e(),document.addEventListener("ShoptetDOMPageContentLoaded",function(){e()}),document.addEventListener("ShoptetDOMPageMoreProductsLoaded",function(){e()}),document.addEventListener("ShoptetDOMAdvancedOrderLoaded",function(){e()}),n.hasClass("type-index")&&function(){v.apply(this,arguments)}(),n.hasClass("type-detail")&&h(),n.hasClass("type-category")&&console.log("Category initialized!"),n.hasClass("ordering-process")&&console.log("Cart initialized!"),n.hasClass("type-page")&&console.log("Pages initialized!"),n.hasClass("type-posts-listing")&&console.log("Blog listing initialized!"),n.hasClass("type-post")&&console.log("Blog post initialized!"),n.addClass("ready"),console.log("RN JS loaded!")})}();
+(function () {
+    'use strict';
+
+    // Removes stray commas from menu list items
+    function removeMenuCommas() {
+      $('.menu-level-3 li').each(function () {
+        this.innerHTML = this.innerHTML.replace(/,/g, '');
+      });
+    }
+    function initHeader() {
+      removeMenuCommas();
+    }
+
+    function initFooter() {
+      console.log('Footer initialized!');
+    }
+
+    function initPopupWidget() {
+      console.log('Popup widget initialized!');
+    }
+
+    var transformProducts = function transformProducts() {
+      var products = $('.products-block .product');
+      if (products.length) {
+        products.each(function () {
+          $(this);
+        });
+      }
+    };
+    function initProducts() {
+      transformProducts();
+      document.addEventListener('ShoptetDOMPageContentLoaded', function () {
+        transformProducts();
+      });
+      document.addEventListener('ShoptetDOMPageMoreProductsLoaded', function () {
+        transformProducts();
+      });
+      document.addEventListener('ShoptetDOMAdvancedOrderLoaded', function () {
+        transformProducts();
+      });
+    }
+
+    function asyncGeneratorStep(n, t, e, r, o, a, c) {
+      try {
+        var i = n[a](c),
+          u = i.value;
+      } catch (n) {
+        return void e(n);
+      }
+      i.done ? t(u) : Promise.resolve(u).then(r, o);
+    }
+    function _asyncToGenerator(n) {
+      return function () {
+        var t = this,
+          e = arguments;
+        return new Promise(function (r, o) {
+          var a = n.apply(t, e);
+          function _next(n) {
+            asyncGeneratorStep(a, r, o, _next, _throw, "next", n);
+          }
+          function _throw(n) {
+            asyncGeneratorStep(a, r, o, _next, _throw, "throw", n);
+          }
+          _next(void 0);
+        });
+      };
+    }
+    function _defineProperty(e, r, t) {
+      return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+        value: t,
+        enumerable: !0,
+        configurable: !0,
+        writable: !0
+      }) : e[r] = t, e;
+    }
+    function ownKeys(e, r) {
+      var t = Object.keys(e);
+      if (Object.getOwnPropertySymbols) {
+        var o = Object.getOwnPropertySymbols(e);
+        r && (o = o.filter(function (r) {
+          return Object.getOwnPropertyDescriptor(e, r).enumerable;
+        })), t.push.apply(t, o);
+      }
+      return t;
+    }
+    function _objectSpread2(e) {
+      for (var r = 1; r < arguments.length; r++) {
+        var t = null != arguments[r] ? arguments[r] : {};
+        r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
+          _defineProperty(e, r, t[r]);
+        }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
+          Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+        });
+      }
+      return e;
+    }
+    function _regeneratorRuntime() {
+      _regeneratorRuntime = function () {
+        return e;
+      };
+      var t,
+        e = {},
+        r = Object.prototype,
+        n = r.hasOwnProperty,
+        o = Object.defineProperty || function (t, e, r) {
+          t[e] = r.value;
+        },
+        i = "function" == typeof Symbol ? Symbol : {},
+        a = i.iterator || "@@iterator",
+        c = i.asyncIterator || "@@asyncIterator",
+        u = i.toStringTag || "@@toStringTag";
+      function define(t, e, r) {
+        return Object.defineProperty(t, e, {
+          value: r,
+          enumerable: !0,
+          configurable: !0,
+          writable: !0
+        }), t[e];
+      }
+      try {
+        define({}, "");
+      } catch (t) {
+        define = function (t, e, r) {
+          return t[e] = r;
+        };
+      }
+      function wrap(t, e, r, n) {
+        var i = e && e.prototype instanceof Generator ? e : Generator,
+          a = Object.create(i.prototype),
+          c = new Context(n || []);
+        return o(a, "_invoke", {
+          value: makeInvokeMethod(t, r, c)
+        }), a;
+      }
+      function tryCatch(t, e, r) {
+        try {
+          return {
+            type: "normal",
+            arg: t.call(e, r)
+          };
+        } catch (t) {
+          return {
+            type: "throw",
+            arg: t
+          };
+        }
+      }
+      e.wrap = wrap;
+      var h = "suspendedStart",
+        l = "suspendedYield",
+        f = "executing",
+        s = "completed",
+        y = {};
+      function Generator() {}
+      function GeneratorFunction() {}
+      function GeneratorFunctionPrototype() {}
+      var p = {};
+      define(p, a, function () {
+        return this;
+      });
+      var d = Object.getPrototypeOf,
+        v = d && d(d(values([])));
+      v && v !== r && n.call(v, a) && (p = v);
+      var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p);
+      function defineIteratorMethods(t) {
+        ["next", "throw", "return"].forEach(function (e) {
+          define(t, e, function (t) {
+            return this._invoke(e, t);
+          });
+        });
+      }
+      function AsyncIterator(t, e) {
+        function invoke(r, o, i, a) {
+          var c = tryCatch(t[r], t, o);
+          if ("throw" !== c.type) {
+            var u = c.arg,
+              h = u.value;
+            return h && "object" == typeof h && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) {
+              invoke("next", t, i, a);
+            }, function (t) {
+              invoke("throw", t, i, a);
+            }) : e.resolve(h).then(function (t) {
+              u.value = t, i(u);
+            }, function (t) {
+              return invoke("throw", t, i, a);
+            });
+          }
+          a(c.arg);
+        }
+        var r;
+        o(this, "_invoke", {
+          value: function (t, n) {
+            function callInvokeWithMethodAndArg() {
+              return new e(function (e, r) {
+                invoke(t, n, e, r);
+              });
+            }
+            return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
+          }
+        });
+      }
+      function makeInvokeMethod(e, r, n) {
+        var o = h;
+        return function (i, a) {
+          if (o === f) throw Error("Generator is already running");
+          if (o === s) {
+            if ("throw" === i) throw a;
+            return {
+              value: t,
+              done: !0
+            };
+          }
+          for (n.method = i, n.arg = a;;) {
+            var c = n.delegate;
+            if (c) {
+              var u = maybeInvokeDelegate(c, n);
+              if (u) {
+                if (u === y) continue;
+                return u;
+              }
+            }
+            if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) {
+              if (o === h) throw o = s, n.arg;
+              n.dispatchException(n.arg);
+            } else "return" === n.method && n.abrupt("return", n.arg);
+            o = f;
+            var p = tryCatch(e, r, n);
+            if ("normal" === p.type) {
+              if (o = n.done ? s : l, p.arg === y) continue;
+              return {
+                value: p.arg,
+                done: n.done
+              };
+            }
+            "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg);
+          }
+        };
+      }
+      function maybeInvokeDelegate(e, r) {
+        var n = r.method,
+          o = e.iterator[n];
+        if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y;
+        var i = tryCatch(o, e.iterator, r.arg);
+        if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y;
+        var a = i.arg;
+        return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y);
+      }
+      function pushTryEntry(t) {
+        var e = {
+          tryLoc: t[0]
+        };
+        1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e);
+      }
+      function resetTryEntry(t) {
+        var e = t.completion || {};
+        e.type = "normal", delete e.arg, t.completion = e;
+      }
+      function Context(t) {
+        this.tryEntries = [{
+          tryLoc: "root"
+        }], t.forEach(pushTryEntry, this), this.reset(!0);
+      }
+      function values(e) {
+        if (e || "" === e) {
+          var r = e[a];
+          if (r) return r.call(e);
+          if ("function" == typeof e.next) return e;
+          if (!isNaN(e.length)) {
+            var o = -1,
+              i = function next() {
+                for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next;
+                return next.value = t, next.done = !0, next;
+              };
+            return i.next = i;
+          }
+        }
+        throw new TypeError(typeof e + " is not iterable");
+      }
+      return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", {
+        value: GeneratorFunctionPrototype,
+        configurable: !0
+      }), o(GeneratorFunctionPrototype, "constructor", {
+        value: GeneratorFunction,
+        configurable: !0
+      }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) {
+        var e = "function" == typeof t && t.constructor;
+        return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name));
+      }, e.mark = function (t) {
+        return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t;
+      }, e.awrap = function (t) {
+        return {
+          __await: t
+        };
+      }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () {
+        return this;
+      }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) {
+        void 0 === i && (i = Promise);
+        var a = new AsyncIterator(wrap(t, r, n, o), i);
+        return e.isGeneratorFunction(r) ? a : a.next().then(function (t) {
+          return t.done ? t.value : a.next();
+        });
+      }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () {
+        return this;
+      }), define(g, "toString", function () {
+        return "[object Generator]";
+      }), e.keys = function (t) {
+        var e = Object(t),
+          r = [];
+        for (var n in e) r.push(n);
+        return r.reverse(), function next() {
+          for (; r.length;) {
+            var t = r.pop();
+            if (t in e) return next.value = t, next.done = !1, next;
+          }
+          return next.done = !0, next;
+        };
+      }, e.values = values, Context.prototype = {
+        constructor: Context,
+        reset: function (e) {
+          if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t);
+        },
+        stop: function () {
+          this.done = !0;
+          var t = this.tryEntries[0].completion;
+          if ("throw" === t.type) throw t.arg;
+          return this.rval;
+        },
+        dispatchException: function (e) {
+          if (this.done) throw e;
+          var r = this;
+          function handle(n, o) {
+            return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o;
+          }
+          for (var o = this.tryEntries.length - 1; o >= 0; --o) {
+            var i = this.tryEntries[o],
+              a = i.completion;
+            if ("root" === i.tryLoc) return handle("end");
+            if (i.tryLoc <= this.prev) {
+              var c = n.call(i, "catchLoc"),
+                u = n.call(i, "finallyLoc");
+              if (c && u) {
+                if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
+                if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
+              } else if (c) {
+                if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
+              } else {
+                if (!u) throw Error("try statement without catch or finally");
+                if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
+              }
+            }
+          }
+        },
+        abrupt: function (t, e) {
+          for (var r = this.tryEntries.length - 1; r >= 0; --r) {
+            var o = this.tryEntries[r];
+            if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) {
+              var i = o;
+              break;
+            }
+          }
+          i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null);
+          var a = i ? i.completion : {};
+          return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a);
+        },
+        complete: function (t, e) {
+          if ("throw" === t.type) throw t.arg;
+          return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y;
+        },
+        finish: function (t) {
+          for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+            var r = this.tryEntries[e];
+            if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y;
+          }
+        },
+        catch: function (t) {
+          for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+            var r = this.tryEntries[e];
+            if (r.tryLoc === t) {
+              var n = r.completion;
+              if ("throw" === n.type) {
+                var o = n.arg;
+                resetTryEntry(r);
+              }
+              return o;
+            }
+          }
+          throw Error("illegal catch attempt");
+        },
+        delegateYield: function (e, r, n) {
+          return this.delegate = {
+            iterator: values(e),
+            resultName: r,
+            nextLoc: n
+          }, "next" === this.method && (this.arg = t), y;
+        }
+      }, e;
+    }
+    function _toPrimitive(t, r) {
+      if ("object" != typeof t || !t) return t;
+      var e = t[Symbol.toPrimitive];
+      if (void 0 !== e) {
+        var i = e.call(t, r || "default");
+        if ("object" != typeof i) return i;
+        throw new TypeError("@@toPrimitive must return a primitive value.");
+      }
+      return ("string" === r ? String : Number)(t);
+    }
+    function _toPropertyKey(t) {
+      var i = _toPrimitive(t, "string");
+      return "symbol" == typeof i ? i : i + "";
+    }
+
+    // Extracts all VZK- parameter values from detail parameters table and hides the rows
+    function extractVzorkovnikCodes() {
+      var codes = [];
+      $('.detail-parameters tr').each(function () {
+        var td = $(this).find('td');
+        var text = td.text().trim();
+        if (text.startsWith('VZK-')) {
+          $(this).hide();
+          var parts = text.split('-');
+          var csCategory = parts[2] || null;
+          codes.push({
+            code: text,
+            csCategory: csCategory
+          });
+        }
+      });
+      return codes;
+    }
+
+    // Fetches vzorkovnik page and parses image/title pairs from .text container
+    function fetchVzorkovnikItems(_x) {
+      return _fetchVzorkovnikItems.apply(this, arguments);
+    } // Builds gallery HTML for a single vzorkovnik section
+    function _fetchVzorkovnikItems() {
+      _fetchVzorkovnikItems = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(code) {
+        var _textContainer$queryS;
+        var response, html, doc, textContainer, heading, items, children, i, el, img, nextEl;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return fetch("/".concat(code));
+            case 2:
+              response = _context.sent;
+              _context.next = 5;
+              return response.text();
+            case 5:
+              html = _context.sent;
+              doc = new DOMParser().parseFromString(html, 'text/html');
+              textContainer = doc.querySelector('.text');
+              if (textContainer) {
+                _context.next = 10;
+                break;
+              }
+              return _context.abrupt("return", {
+                items: [],
+                heading: null
+              });
+            case 10:
+              heading = ((_textContainer$queryS = textContainer.querySelector('h2')) === null || _textContainer$queryS === void 0 ? void 0 : _textContainer$queryS.textContent.trim()) || null;
+              items = [];
+              children = Array.from(textContainer.children);
+              for (i = 0; i < children.length; i++) {
+                el = children[i];
+                if (el.tagName === 'P') {
+                  img = el.querySelector('img');
+                  nextEl = children[i + 1];
+                  if (img && nextEl) {
+                    items.push({
+                      src: img.src,
+                      title: nextEl.textContent.trim()
+                    });
+                  }
+                }
+              }
+              return _context.abrupt("return", {
+                items: items,
+                heading: heading
+              });
+            case 15:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }));
+      return _fetchVzorkovnikItems.apply(this, arguments);
+    }
+    function buildGallerySection(items, heading, index) {
+      var galleryItems = items.map(function (_ref) {
+        var src = _ref.src,
+          title = _ref.title;
+        return /* HTML */"\n                <div class=\"plus-gallery-item\">\n                    <a\n                        href=\"".concat(src, "\"\n                        title=\"").concat(title, "\"\n                        data-gallery=\"lightbox[gallery-vzorkovnik-").concat(index, "]\"\n                        class=\"cboxElement\">\n                        <div class=\"plus-gallery-item-img\">\n                            <img src=\"").concat(src, "\" alt=\"").concat(title, "\" loading=\"lazy\" />\n                        </div>\n                        <div class=\"plus-gallery-item-title\">").concat(title, "</div>\n                    </a>\n                </div>\n            ");
+      }).join('');
+      var headingHtml = heading ? /* HTML */"<h3 class=\"vzorkovnik-heading\">".concat(heading, "</h3>") : '';
+      return /* HTML */"\n        ".concat(headingHtml, "\n        <div class=\"plus-gallery-wrap\">").concat(galleryItems, "</div>\n    ");
+    }
+
+    // Renders vzorkovnik gallery tab with category headings before first occurrence
+    function renderVzorkovnikTab(galleries) {
+      var tabList = $('#p-detail-tabs');
+      var tabContentParent = $('#description').parent();
+      var validGalleries = galleries.filter(function (g) {
+        return g.items.length > 0;
+      });
+      if (!tabList.length || !tabContentParent.length || !validGalleries.length) return;
+      var seenCategories = new Set();
+      var galleriesHtml = validGalleries.map(function (gallery, index) {
+        var categoryKey = gallery.csCategory;
+        var categoryTitle = vzkCsTitles[categoryKey];
+        var html = '';
+        if (categoryTitle && !seenCategories.has(categoryKey)) {
+          seenCategories.add(categoryKey);
+          html += /* HTML */"<h2 class=\"vzorkovnik-category-heading\">".concat(categoryTitle, "</h2>");
+        }
+        html += buildGallerySection(gallery.items, gallery.heading, index);
+        return html;
+      }).join('');
+      var tabHtml = /* HTML */"\n        <li class=\"shp-tab vzorkovnik-tab\" data-testid=\"tabVzorkovnik\">\n            <a href=\"#vzorkovnik\" class=\"shp-tab-link\" role=\"tab\" data-toggle=\"tab\">\n                <span>Vzorkovnik</span>\n                <span class=\"vzorkovnik-tab-icon\"></span>\n            </a>\n        </li>\n    ";
+      var contentHtml = /* HTML */"\n        <div id=\"vzorkovnik\" class=\"tab-pane fade\" role=\"tabpanel\">\n            <span class=\"detail-tab-item js-detail-tab-item\" data-content=\"vzorkovnik\">Vzorkovnik</span>\n            <div class=\"detail-tab-content\">".concat(galleriesHtml, "</div>\n        </div>\n    ");
+      tabList.append(tabHtml);
+      tabContentParent.append(contentHtml);
+      initVzorkovnikColorbox();
+      // insertVzorkovnikLink()
+      setupVzorkovnikLinkHandler();
+    }
+
+    // Initializes colorbox for dynamically added vzorkovnik gallery items
+    function initVzorkovnikColorbox() {
+      $('#vzorkovnik .cboxElement').each(function () {
+        var galleryGroup = $(this).data('gallery');
+        $(this).colorbox({
+          rel: galleryGroup,
+          maxWidth: '95%',
+          maxHeight: '95%'
+        });
+      });
+    }
+
+    // Scrolls to vzorkovnik tab and activates it
+    function scrollToVzorkovnikTab() {
+      var vzorkovnikTab = $('[data-testid="tabVzorkovnik"] a');
+      var vzorkovnikContent = $('#vzorkovnik');
+      vzorkovnikTab.trigger('click');
+      var scrollToVzorkovnik = function scrollToVzorkovnik() {
+        $('html, body').animate({
+          scrollTop: vzorkovnikContent.offset().top - 100
+        }, 300);
+      };
+      vzorkovnikContent.one('transitionend', scrollToVzorkovnik);
+      setTimeout(scrollToVzorkovnik, 350);
+    }
+
+    // Handles click on vzorkovnik link - opens tab and scrolls to it
+    function setupVzorkovnikLinkHandler() {
+      $(document).off('click.vzorkovnikLink').on('click.vzorkovnikLink', '.vzorkovnik-link', function (e) {
+        e.preventDefault();
+        scrollToVzorkovnikTab();
+      });
+    }
+
+    // Binds click on image links pointing to #vzorkovnik to open and scroll to the tab
+    function setupVzorkovnikImageLinks() {
+      $('a[href="#vzorkovnik"]').has('img').off('click.vzorkovnikImage').on('click.vzorkovnikImage', function (e) {
+        e.preventDefault();
+        scrollToVzorkovnikTab();
+      });
+    }
+    function changeDetailBtn() {
+      var detailFlag = $('.p-image-wrapper .flag.flag-detail-btn');
+      var addToCartButton = $('.p-info-wrapper .add-to-cart-button');
+      if (!detailFlag.length) return;
+      var flagText = detailFlag.text();
+      addToCartButton.text(flagText).addClass('detail-btn');
+    }
+
+    // Initializes vzorkovnik feature - detects codes, fetches data, renders gallery tab
+    function initVzorkovnik() {
+      return _initVzorkovnik.apply(this, arguments);
+    } // Initializes product detail page enhancements
+    function _initVzorkovnik() {
+      _initVzorkovnik = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var codeData, galleries;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              codeData = extractVzorkovnikCodes();
+              if (codeData.length) {
+                _context3.next = 3;
+                break;
+              }
+              return _context3.abrupt("return");
+            case 3:
+              _context3.next = 5;
+              return Promise.all(codeData.map( /*#__PURE__*/function () {
+                var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(_ref2) {
+                  var code, csCategory, result;
+                  return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                    while (1) switch (_context2.prev = _context2.next) {
+                      case 0:
+                        code = _ref2.code, csCategory = _ref2.csCategory;
+                        _context2.next = 3;
+                        return fetchVzorkovnikItems(code);
+                      case 3:
+                        result = _context2.sent;
+                        return _context2.abrupt("return", _objectSpread2(_objectSpread2({}, result), {}, {
+                          csCategory: csCategory
+                        }));
+                      case 5:
+                      case "end":
+                        return _context2.stop();
+                    }
+                  }, _callee2);
+                }));
+                return function (_x2) {
+                  return _ref3.apply(this, arguments);
+                };
+              }()));
+            case 5:
+              galleries = _context3.sent;
+              renderVzorkovnikTab(galleries);
+              $('.extended-description').hide();
+            case 8:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3);
+      }));
+      return _initVzorkovnik.apply(this, arguments);
+    }
+    function initDetail() {
+      initVzorkovnik();
+      changeDetailBtn();
+      setupVzorkovnikImageLinks();
+    }
+
+    function initCategory() {
+      console.log('Category initialized!');
+    }
+
+    function initHomepage() {
+      return _initHomepage.apply(this, arguments);
+    }
+    function _initHomepage() {
+      _initHomepage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              console.log('Homepage initialized!');
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }));
+      return _initHomepage.apply(this, arguments);
+    }
+
+    function initCart() {
+      console.log('Cart initialized!');
+    }
+
+    function initPages() {
+      console.log('Pages initialized!');
+    }
+
+    function initBlogListing() {
+      console.log('Blog listing initialized!');
+    }
+
+    function initBlogPost() {
+      console.log('Blog post initialized!');
+    }
+
+    // Gets the current variant SKU from variant data using priceId
+    function getProductId() {
+      try {
+        var _shoptet$variantsSpli;
+        var priceId = $('input[name="priceId"]').val();
+        var variantData = (_shoptet$variantsSpli = shoptet.variantsSplit) === null || _shoptet$variantsSpli === void 0 ? void 0 : _shoptet$variantsSpli.necessaryVariantData;
+        if (!priceId || !variantData) return null;
+        for (var key in variantData) {
+          if (variantData[key].id === parseInt(priceId, 10)) {
+            console.log('[ProductNote] getProductId:', variantData[key].code);
+            return variantData[key].code;
+          }
+        }
+        return null;
+      } catch (_unused) {
+        return null;
+      }
+    }
+
+    // Retrieves saved product notes from localStorage
+    function getNotes() {
+      return JSON.parse(localStorage.getItem('productNotes')) || [];
+    }
+
+    // Checks if all variant parameters are selected
+    function isVariantSelected() {
+      var variantSelects = $('.hidden-split-parameter');
+      if (!variantSelects.length) return true;
+      var allSelected = true;
+      variantSelects.each(function () {
+        if (!$(this).val()) {
+          allSelected = false;
+          return false;
+        }
+      });
+      return allSelected;
+    }
+
+    // Checks if note is required based on presence of .flag-note-required element
+    function isNoteRequired() {
+      var flagElement = $('.p-image-wrapper .flag-note-required');
+      var required = flagElement.length > 0;
+      if (required) {
+        flagElement.hide();
+      }
+      console.log('[ProductNote] isNoteRequired:', required);
+      return required;
+    }
+
+    // Checks if vzorkovnik is active on this product (has VZK- parameter or vzorkovnik tab)
+    function isVzorkovnikActive() {
+      if ($('#vzorkovnik').length > 0) return true;
+      var hasVzk = false;
+      $('.extended-description .detail-parameters tr td').each(function () {
+        if ($(this).text().trim().startsWith('VZK-')) {
+          hasVzk = true;
+          return false;
+        }
+      });
+      console.log('[ProductNote] isVzorkovnikActive:', hasVzk);
+      return hasVzk;
+    }
+
+    // Validates note input - note is required only if flag-note-required exists
+    function validateNote(noteValue) {
+      if (!isVariantSelected()) {
+        console.log('[ProductNote] Variant not selected');
+        return false;
+      }
+      if (isNoteRequired() && !noteValue) {
+        console.log('[ProductNote] Note required but empty (flag-note-required present)');
+        return false;
+      }
+      return true;
+    }
+
+    // Creates the note input HTML element
+    function createNoteInput(labelText, isRequired, showHelper) {
+      var spanClass = isRequired ? 'required-asterisk' : '';
+      var requiredAttr = isRequired ? 'required' : '';
+      var helperText = showHelper ? '<small class="product-note-helper">Tu napíšte názov vybranej poťahovej látky:</small>' : '';
+      return /* HTML */"\n        <div class=\"form-group product-note\">\n            <label for=\"productNote\">\n                <span class=\"".concat(spanClass, "\">").concat(labelText, "</span>\n            </label>\n            ").concat(helperText, "\n            <textarea id=\"productNote\" name=\"productNote\" class=\"form-control\" ").concat(requiredAttr, "></textarea>\n        </div>\n    ");
+    }
+
+    // Appends note input to form if not already present
+    function handleNewNote(container) {
+      var isRequired = isNoteRequired();
+      var showHelper = isVzorkovnikActive();
+      if (!$('.form-group.product-note').length) {
+        container.append(createNoteInput('Vaše poznámky k tovaru', isRequired, showHelper));
+      } else {
+        var noteGroup = $('.form-group.product-note');
+        var labelSpan = noteGroup.find('label span');
+        var textarea = $('#productNote');
+        labelSpan.toggleClass('required-asterisk', isRequired);
+        textarea.prop('required', isRequired);
+        if (showHelper && !noteGroup.find('.product-note-helper').length) {
+          noteGroup.find('label').after('<small class="product-note-helper">Tu napíšte názov vybranej poťahovej látky:</small>');
+        } else if (!showHelper) {
+          noteGroup.find('.product-note-helper').remove();
+        }
+      }
+      $('.form-group.product-note').show();
+    }
+
+    // Sets up form submission and enter key handlers for note input
+    function setupEventListeners() {
+      var productForm = $('#product-detail-form');
+      productForm.off('submit.productNote').on('submit.productNote', function (e) {
+        e.preventDefault();
+        var productNoteInput = $('#productNote');
+        var currentProductId = getProductId();
+        var noteValue = productNoteInput.val().trim();
+        var noteRequired = isNoteRequired();
+        console.log('[ProductNote] Form submit - ID:', currentProductId, '| Note:', noteValue, '| Required:', noteRequired);
+        if (!validateNote(noteValue)) {
+          console.log('[ProductNote] Validation failed');
+          return;
+        }
+        if (currentProductId && noteValue) {
+          var productName = $('h1').first().text().trim() || '';
+          var latestNotes = getNotes();
+          updateLocalStorage(currentProductId, latestNotes, noteValue, productName);
+          productForm.attr('data-note-id', currentProductId);
+          productNoteInput.val('');
+          console.log('[ProductNote] Note saved:', currentProductId, noteValue);
+        }
+        $('.add-to-cart-button').trigger('click.shoptet');
+      });
+      $('#productNote').off('keypress.productNote').on('keypress.productNote', function (e) {
+        if (e.which === 13) {
+          e.preventDefault();
+          productForm.trigger('submit.productNote');
+        }
+      });
+    }
+
+    // Saves or removes note from localStorage for a specific product
+    function updateLocalStorage(productId, notes, noteValue, productName) {
+      if (!productId) {
+        console.error('[ProductNote] Invalid product ID');
+        return;
+      }
+      var filteredNotes = notes.filter(function (note) {
+        return note.id !== productId;
+      });
+      if (noteValue) {
+        filteredNotes.push({
+          id: productId,
+          note: noteValue,
+          name: productName
+        });
+      }
+      localStorage.setItem('productNotes', JSON.stringify(filteredNotes));
+      console.log('[ProductNote] localStorage updated:', filteredNotes);
+    }
+
+    // Removes notes for products no longer in cart
+    function cleanupRemovedProductNotes() {
+      try {
+        var cartProductCodes = [];
+        $('.cart-table tr.removeable').each(function () {
+          var sku = $(this).data('micro-sku');
+          if (sku) cartProductCodes.push(String(sku));
+        });
+        if (!cartProductCodes.length) return;
+        var notes = getNotes();
+        var remainingNotes = notes.filter(function (note) {
+          return cartProductCodes.includes(note.id);
+        });
+        if (remainingNotes.length !== notes.length) {
+          localStorage.setItem('productNotes', JSON.stringify(remainingNotes));
+          console.log('[ProductNote] Cleaned up notes, remaining:', remainingNotes);
+        }
+      } catch (error) {
+        console.error('[ProductNote] cleanupRemovedProductNotes error:', error);
+      }
+    }
+
+    // Creates HTML for displaying a note in the cart
+    function createCartNoteDisplay(note) {
+      return /* HTML */"\n        <div class=\"cart-note-display\">\n            <span class=\"note-text\">".concat(note, "</span>\n        </div>\n    ");
+    }
+
+    // Displays saved notes next to matching products in cart
+    function displayCartNotes() {
+      var notes = getNotes();
+      var cartRows = $('.cart-table tr.removeable');
+      console.log('[ProductNote] displayCartNotes - Notes:', notes, '| Rows:', cartRows.length);
+      cartRows.each(function () {
+        var row = $(this);
+        var productSku = String(row.data('micro-sku'));
+        var productNote = notes.find(function (note) {
+          return note.id === productSku;
+        });
+        console.log('[ProductNote] Row SKU:', productSku, '| Match:', productNote);
+        if (productNote && !row.find('.cart-note-display').length) {
+          row.find('.p-name').append(createCartNoteDisplay(productNote.note));
+          row.attr('data-note-id', productNote.id);
+        }
+      });
+    }
+
+    // Handles cart update events - refreshes notes display
+    function handleCartUpdate() {
+      cleanupRemovedProductNotes();
+      displayCartNotes();
+    }
+
+    // Initializes note input on product detail page
+    function initDetailNote() {
+      var container = $('.detail-parameters-block');
+      console.log('[ProductNote] initDetailNote - container found:', container.length);
+      if (!container.length) return;
+      handleNewNote(container);
+      setupEventListeners();
+    }
+
+    // Sets up listeners for detail page variant changes
+    function inDetail() {
+      if (!$('.type-detail').length) return;
+      console.log('[ProductNote] inDetail - initializing');
+      initDetailNote();
+      $(document).on('ShoptetSplitVariantParameterChange', function () {
+        console.log('[ProductNote] Variant changed');
+        setTimeout(initDetailNote, 150);
+      });
+    }
+
+    // Initializes note display on cart page
+    function inCart() {
+      if (!$('.id--9').length) return;
+      console.log('[ProductNote] inCart - initializing');
+      displayCartNotes();
+      cleanupRemovedProductNotes();
+      $(document).on('ShoptetDOMCartContentLoaded', function () {
+        setTimeout(handleCartUpdate, 150);
+      });
+      $('.cart-table').on('change', '.amount input', function () {
+        setTimeout(handleCartUpdate, 150);
+      });
+    }
+
+    // Sets up global cart event listeners for cleanup
+    function setupGlobalCartListeners() {
+      $(document).on('ShoptetCartUpdated ShoptetCartContentLoaded', function () {
+        setTimeout(cleanupRemovedProductNotes, 150);
+      });
+    }
+
+    // Appends product notes to general remark field before order submission
+    function addProductNotesToGeneralNote() {
+      document.addEventListener('ShoptetSuccessfulValidation', function (e) {
+        var notes = getNotes();
+        if (notes.length > 0) {
+          e.preventDefault();
+          var remarkField = $('#remark');
+          var currentRemark = remarkField.val() || '';
+          var productNotes = notes.map(function (note) {
+            return "".concat(note.id, " / ").concat(note.name, ": ").concat(note.note);
+          }).join(' ||| ');
+          var newRemark = [currentRemark && "Pozn\xE1mka pre predajcu: ".concat(currentRemark), productNotes && "Pozn\xE1mky k produktu: ".concat(productNotes)].filter(Boolean).join(' ||| ');
+          remarkField.val(newRemark);
+          console.log('[ProductNote] Remark updated:', newRemark);
+          $('#submit-order').click();
+        }
+      });
+    }
+
+    // Initializes cart step 3 (checkout) functionality
+    function inCheckout() {
+      if (!$('.id--17').length) return;
+      console.log('[ProductNote] inCheckout - initializing');
+      addProductNotesToGeneralNote();
+    }
+
+    // Main entry point - initializes product note functionality
+    function initProductNote() {
+      console.log('[ProductNote] initProductNote called');
+      setupGlobalCartListeners();
+      inDetail();
+      inCart();
+      inCheckout();
+    }
+
+    var REVIEWS_API = 'https://oravec-google-reviews.nrobern.workers.dev/reviews';
+    var GOOGLE_MAPS_URL = 'https://www.google.com/search?sa=X&sca_esv=15046669d36cafaf&hl=cs-CZ&gl=cz&sxsrf=ANbL-n5YAnD-3_MGjUdwBUbi8Q5zAlA56Q:1770981499737&q=ORAVEC+N%C3%81BYTOK+Recenze&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxI2NrS0NDI1MzYxNzAztTAwtzC32MDI-IpR3D_IMczVWcHvcKNTZIi_t0JQanJqXlXqIlZcMgDxUo0JTgAAAA&rldimm=3199256347065807878&tbm=lcl&ved=2ahUKEwiC_ceZrNaSAxWBQ_EDHaD0JEwQ9fQKegQIWBAG&cshid=1770981535431468&biw=2267&bih=1390&dpr=1#lkt=LocalPoiReviews';
+
+    // Fetches Google reviews from the Worker API and renders them in the footer
+    function initGoogleReviews() {
+      fetch(REVIEWS_API).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        var _data$reviews;
+        if (!((_data$reviews = data.reviews) !== null && _data$reviews !== void 0 && _data$reviews.length)) return;
+        renderReviews(data.reviews);
+      })["catch"](function (err) {
+        return console.error('Google Reviews fetch failed:', err);
+      });
+    }
+    function renderStars(rating) {
+      return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    }
+
+    // Calculates relative time in Slovak from an ISO date string
+    function getRelativeTime(dateString) {
+      var now = new Date();
+      var date = new Date(dateString);
+      var diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+      if (diffDays < 1) return 'dnes';
+      if (diffDays < 7) return diffDays === 1 ? 'pred 1 dňom' : "pred ".concat(diffDays, " d\u0148ami");
+      var diffWeeks = Math.floor(diffDays / 7);
+      if (diffWeeks < 5) return diffWeeks === 1 ? 'pred 1 týždňom' : "pred ".concat(diffWeeks, " t\xFD\u017Ed\u0148ami");
+      var diffMonths = Math.floor(diffDays / 30);
+      if (diffMonths < 12) return diffMonths === 1 ? 'pred 1 mesiacom' : "pred ".concat(diffMonths, " mesiacmi");
+      var diffYears = Math.floor(diffDays / 365);
+      return diffYears === 1 ? 'pred rokom' : "pred ".concat(diffYears, " rokmi");
+    }
+    function buildReviewCard(review) {
+      var initial = review.author.charAt(0).toUpperCase();
+      return /* HTML */"\n        <div class=\"swiper-slide\">\n            <a href=\"".concat(GOOGLE_MAPS_URL, "\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"google-review\">\n                <div class=\"google-review__body\">\n                    <div class=\"google-review__header\">\n                        <img\n                            src=\"").concat(review.photo, "\"\n                            alt=\"").concat(review.author, "\"\n                            class=\"google-review__avatar\"\n                            loading=\"lazy\"\n                            onerror=\"this.style.display='none';this.nextElementSibling.style.display='flex'\"\n                            referrerpolicy=\"no-referrer\" />\n                        <span class=\"google-review__avatar-fallback\" style=\"display:none\">").concat(initial, "</span>\n                        <div class=\"google-review__meta\">\n                            <span class=\"google-review__author\">").concat(review.author, "</span>\n                            <span class=\"google-review__stars\">").concat(renderStars(review.rating), "</span>\n                        </div>\n                    </div>\n                    <p class=\"google-review__text\">").concat(review.text, "</p>\n                    <span class=\"google-review__time\">").concat(getRelativeTime(review.time), "</span>\n                </div>\n            </a>\n        </div>\n    ");
+    }
+
+    // Builds the reviews section and prepends it to .footer-rows
+    function renderReviews(reviews) {
+      var footerRows = $('.footer-rows');
+      if (!footerRows.length) return;
+      var reviewCards = reviews.map(buildReviewCard).join('');
+      var html = /* HTML */"\n        <div class=\"google-reviews footer-item\">\n            <div class=\"google-reviews__header\">\n                <div class=\"google-reviews__title\">\n                    <svg class=\"google-reviews__google-icon\" viewBox=\"0 0 24 24\" width=\"24\" height=\"24\">\n                        <path\n                            fill=\"#4285F4\"\n                            d=\"M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z\" />\n                        <path\n                            fill=\"#34A853\"\n                            d=\"M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z\" />\n                        <path\n                            fill=\"#FBBC05\"\n                            d=\"M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z\" />\n                        <path\n                            fill=\"#EA4335\"\n                            d=\"M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z\" />\n                    </svg>\n                    <h4>Google recenzie</h4>\n                </div>\n                <div class=\"google-reviews__nav\">\n                    <button class=\"google-reviews__prev\" aria-label=\"Predch\xE1dzaj\xFAca recenzia\">&#8249;</button>\n                    <button class=\"google-reviews__next\" aria-label=\"Nasleduj\xFAca recenzia\">&#8250;</button>\n                </div>\n            </div>\n            <div class=\"google-reviews__slider swiper\">\n                <div class=\"swiper-wrapper\">".concat(reviewCards, "</div>\n            </div>\n        </div>\n    ");
+      footerRows.prepend(html);
+      $('.google-review').on('scroll', function () {
+        var el = this;
+        var atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 5;
+        $(el).toggleClass('is-scrolled-bottom', atBottom);
+      });
+      new Swiper('.google-reviews__slider', {
+        slidesPerView: 1.3,
+        spaceBetween: 12,
+        navigation: {
+          prevEl: '.google-reviews__prev',
+          nextEl: '.google-reviews__next'
+        },
+        breakpoints: {
+          992: {
+            slidesPerView: 3.3
+          }
+        }
+      });
+    }
+
+    $(document).ready(function () {
+      var body = $('body');
+      initProductNote();
+      initGoogleReviews();
+      initHeader();
+      initFooter();
+      initPopupWidget();
+      initProducts();
+      if (body.hasClass('type-index')) {
+        initHomepage();
+      }
+      if (body.hasClass('type-detail')) {
+        initDetail();
+      }
+      if (body.hasClass('type-category')) {
+        initCategory();
+      }
+      if (body.hasClass('ordering-process')) {
+        initCart();
+      }
+      if (body.hasClass('type-page')) {
+        initPages();
+      }
+      if (body.hasClass('type-posts-listing')) {
+        initBlogListing();
+      }
+      if (body.hasClass('type-post')) {
+        initBlogPost();
+      }
+      body.addClass('ready');
+      console.log('RN JS loaded!');
+    });
+
+})();
+//# sourceMappingURL=script.js.map

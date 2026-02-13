@@ -105,8 +105,11 @@ function renderVzorkovnikTab(galleries) {
         .join('')
 
     const tabHtml = /* HTML */ `
-        <li class="shp-tab" data-testid="tabVzorkovnik">
-            <a href="#vzorkovnik" class="shp-tab-link" role="tab" data-toggle="tab">Vzorkovnik</a>
+        <li class="shp-tab vzorkovnik-tab" data-testid="tabVzorkovnik">
+            <a href="#vzorkovnik" class="shp-tab-link" role="tab" data-toggle="tab">
+                <span>Vzorkovnik</span>
+                <span class="vzorkovnik-tab-icon"></span>
+            </a>
         </li>
     `
 
