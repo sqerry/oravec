@@ -148,23 +148,39 @@ function insertVzorkovnikLink() {
     parametersGrid.after(linkHtml)
 }
 
+// Scrolls to vzorkovnik tab and activates it
+function scrollToVzorkovnikTab() {
+    const vzorkovnikTab = $('[data-testid="tabVzorkovnik"] a')
+    const vzorkovnikContent = $('#vzorkovnik')
+
+    vzorkovnikTab.trigger('click')
+
+    const scrollToVzorkovnik = () => {
+        $('html, body').animate({ scrollTop: vzorkovnikContent.offset().top - 100 }, 300)
+    }
+
+    vzorkovnikContent.one('transitionend', scrollToVzorkovnik)
+    setTimeout(scrollToVzorkovnik, 350)
+}
+
 // Handles click on vzorkovnik link - opens tab and scrolls to it
 function setupVzorkovnikLinkHandler() {
     $(document)
         .off('click.vzorkovnikLink')
         .on('click.vzorkovnikLink', '.vzorkovnik-link', (e) => {
             e.preventDefault()
-            const vzorkovnikTab = $('[data-testid="tabVzorkovnik"] a')
-            const vzorkovnikContent = $('#vzorkovnik')
+            scrollToVzorkovnikTab()
+        })
+}
 
-            vzorkovnikTab.trigger('click')
-
-            const scrollToVzorkovnik = () => {
-                $('html, body').animate({ scrollTop: vzorkovnikContent.offset().top - 100 }, 300)
-            }
-
-            vzorkovnikContent.one('transitionend', scrollToVzorkovnik)
-            setTimeout(scrollToVzorkovnik, 350)
+// Binds click on image links pointing to #vzorkovnik to open and scroll to the tab
+function setupVzorkovnikImageLinks() {
+    $('a[href="#vzorkovnik"]')
+        .has('img')
+        .off('click.vzorkovnikImage')
+        .on('click.vzorkovnikImage', (e) => {
+            e.preventDefault()
+            scrollToVzorkovnikTab()
         })
 }
 
@@ -198,4 +214,5 @@ async function initVzorkovnik() {
 export function initDetail() {
     initVzorkovnik()
     changeDetailBtn()
+    setupVzorkovnikImageLinks()
 }

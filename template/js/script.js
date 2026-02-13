@@ -10,11 +10,13 @@ import { initPages } from './components/pages.js'
 import { initBlogListing } from './components/blog/blog-listing.js'
 import { initBlogPost } from './components/blog/blog-detail.js'
 import { initProductNote } from './components/productNote.js'
+import { initGoogleReviews } from './components/google-reviews.js'
 
 $(document).ready(function () {
     const body = $('body')
 
     initProductNote()
+    initGoogleReviews()
     initHeader()
     initFooter()
     initPopupWidget()
