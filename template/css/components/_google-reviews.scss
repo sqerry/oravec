@@ -10,18 +10,24 @@
 }
 
 .google-reviews {
-    padding-top: 45px;
-    padding-bottom: 20px;
+    padding: 45px 30px 45px 30px;
     overflow: hidden;
-    max-width: 100%;
-    width: 100%;
+    width: 70%;
+    background-color: var(--color-primary);
+    border-radius: 20px;
+
+    @include mq-min(s-min) {
+        margin-top: -110px;
+    }
 
     @include mq-max(m) {
-        padding: 30px 0;
+        width: 50%;
     }
 
     @include mq-max(s) {
         padding-left: 20px;
+        width: 100%;
+        border-radius: 0;
     }
 
     &__header {
@@ -49,6 +55,7 @@
             font-size: 20px;
             font-weight: 600;
             text-transform: initial;
+            color: #fff !important;
         }
     }
 
@@ -71,7 +78,7 @@
         height: 36px;
         border: 1px solid rgba(0, 0, 0, 0.15);
         border-radius: 50%;
-        background: none;
+        background: #fff;
         color: #333;
         font-size: 20px;
         line-height: 1;
@@ -79,20 +86,14 @@
         transition: all 0.2s;
 
         &:hover {
-            background: var(--color-primary);
+            background: #000;
             color: #fff;
-            border-color: var(--color-primary);
+            border-color: #000;
         }
 
         &.swiper-button-disabled {
             opacity: 0.3;
             cursor: default;
-
-            &:hover {
-                background: none;
-                color: #333;
-                border-color: rgba(0, 0, 0, 0.15);
-            }
         }
     }
 
@@ -133,6 +134,10 @@
         left: 0;
         background: #fafafa;
         transition: opacity 0.2s;
+
+        @include mq-max(m) {
+            height: 26px;
+        }
     }
 
     &.is-scrolled-bottom::after {

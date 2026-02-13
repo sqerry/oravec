@@ -116,6 +116,9 @@ function renderReviews(reviews) {
         },
         breakpoints: {
             992: {
+                slidesPerView: 2.5,
+            },
+            1199: {
                 slidesPerView: 3.3,
             },
         },
