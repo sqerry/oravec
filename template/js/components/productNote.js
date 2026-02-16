@@ -38,17 +38,18 @@ function isVariantSelected() {
     return allSelected
 }
 
-// Checks if note is required based on presence of .flag-note-required element
-function isNoteRequired() {
-    const flagElement = $('.p-image-wrapper .flag-note-required')
-    const required = flagElement.length > 0
+// Returns note config from flags: null (no note), { required: false } (optional), { required: true } (required)
+// When both flags are present, required takes precedence
+function getNoteFlag() {
+    const requiredFlag = $('.p-image-wrapper .flag-note-required')
+    const nonRequiredFlag = $('.p-image-wrapper .flag-note-non-required')
 
-    if (required) {
-        flagElement.hide()
+    if (requiredFlag.length || nonRequiredFlag.length) {
+        requiredFlag.hide()
+        nonRequiredFlag.hide()
+        return { required: requiredFlag.length > 0 }
     }
-
-    console.log('[ProductNote] isNoteRequired:', required)
-    return required
+    return null
 }
 
 // Checks if vzorkovnik is active on this product (has VZK- parameter or vzorkovnik tab)
@@ -66,30 +67,26 @@ function isVzorkovnikActive() {
     return hasVzk
 }
 
-// Validates note input - note is required only if flag-note-required exists
+// Validates note input - note required only when flag-note-required is present
 function validateNote(noteValue) {
-    if (!isVariantSelected()) {
-        console.log('[ProductNote] Variant not selected')
-        return false
-    }
+    if (!isVariantSelected()) return false
 
-    if (isNoteRequired() && !noteValue) {
-        console.log('[ProductNote] Note required but empty (flag-note-required present)')
-        return false
-    }
+    const flag = getNoteFlag()
+    if (flag?.required && !noteValue) return false
 
     return true
 }
 
 // Creates the note input HTML element
-function createNoteInput(labelText, isRequired, showHelper) {
+function createNoteInput(labelText, isRequired, showHelper, modifierClass = '') {
     const spanClass = isRequired ? 'required-asterisk' : ''
     const requiredAttr = isRequired ? 'required' : ''
     const helperText = showHelper
         ? '<small class="product-note-helper">Tu napíšte názov vybranej poťahovej látky:</small>'
         : ''
+    const wrapperClass = `form-group product-note${modifierClass ? ' ' + modifierClass : ''}`
     return /* HTML */ `
-        <div class="form-group product-note">
+        <div class="${wrapperClass}">
             <label for="productNote">
                 <span class="${spanClass}">${labelText}</span>
             </label>
@@ -99,15 +96,21 @@ function createNoteInput(labelText, isRequired, showHelper) {
     `
 }
 
-// Appends note input to form if not already present
-function handleNewNote(container) {
-    const isRequired = isNoteRequired()
+// Appends note input to container, or inserts after anchor when insertAfter is true
+function handleNewNote(container, insertAfter = false, isRequired = false) {
     const showHelper = isVzorkovnikActive()
+    const modifierClass = insertAfter ? 'product-note--headline' : ''
+    const noteHtml = createNoteInput('Vaše poznámky k tovaru', isRequired, showHelper, modifierClass)
 
     if (!$('.form-group.product-note').length) {
-        container.append(createNoteInput('Vaše poznámky k tovaru', isRequired, showHelper))
+        if (insertAfter) {
+            container.after(noteHtml)
+        } else {
+            container.append(noteHtml)
+        }
     } else {
         const noteGroup = $('.form-group.product-note')
+        noteGroup.toggleClass('product-note--headline', insertAfter)
         const labelSpan = noteGroup.find('label span')
         const textarea = $('#productNote')
 
@@ -136,17 +139,7 @@ function setupEventListeners() {
 
         const productNoteInput = $('#productNote')
         const currentProductId = getProductId()
-        const noteValue = productNoteInput.val().trim()
-        const noteRequired = isNoteRequired()
-
-        console.log(
-            '[ProductNote] Form submit - ID:',
-            currentProductId,
-            '| Note:',
-            noteValue,
-            '| Required:',
-            noteRequired
-        )
+        const noteValue = (productNoteInput.val() || '').trim()
 
         if (!validateNote(noteValue)) {
             console.log('[ProductNote] Validation failed')
@@ -257,12 +250,19 @@ function handleCartUpdate() {
 
 // Initializes note input on product detail page
 function initDetailNote() {
+    const flag = getNoteFlag()
+    if (!flag) {
+        $('.form-group.product-note').remove()
+        return
+    }
+
     const container = $('.detail-parameters-block')
-    console.log('[ProductNote] initDetailNote - container found:', container.length)
+    const headline = $('.p-info-headline')
+    const anchor = container.length ? container : headline
 
-    if (!container.length) return
+    if (!anchor.length) return
 
-    handleNewNote(container)
+    handleNewNote(anchor, !container.length, flag.required)
     setupEventListeners()
 }
 

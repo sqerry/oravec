@@ -202,6 +202,8 @@ async function initVzorkovnik() {
     const codeData = extractVzorkovnikCodes()
     if (!codeData.length) return
 
+    console.log(codeData)
+
     const galleries = await Promise.all(
         codeData.map(async ({ code, csCategory }) => {
             const result = await fetchVzorkovnikItems(code)
