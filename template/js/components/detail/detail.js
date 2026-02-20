@@ -195,6 +195,14 @@ function changeDetailBtn() {
 
     const flagText = detailFlag.text()
     addToCartButton.text(flagText).addClass('detail-btn')
+    $('.add-to-cart .quantity').hide()
+
+    addToCartButton
+        .off('click.detailBtn')
+        .on('click.detailBtn', (e) => {
+            e.preventDefault()
+            $('.link-icon.chat')[0]?.click()
+        })
 }
 
 // Initializes vzorkovnik feature - detects codes, fetches data, renders gallery tab

@@ -4,14 +4,16 @@
 }
 #navigation .menu ul.menu-level-1 li {
     .menu-level-2 {
-        > .has-third-level {
-            .menu-image {
-                width: 135px;
-                img {
-                    max-width: 100%;
-                    max-height: 100%;
-                }
+        .menu-image {
+            width: 135px;
+
+            img {
+                max-width: 100%;
+                max-height: 100%;
             }
+        }
+
+        > .has-third-level {
             > div {
                 .menu-level-3 {
                     display: flex;
